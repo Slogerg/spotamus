@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" type="text/css" href="{{url('/css/admin/main.css')}}">
     <div class="container-fluid" style="padding-top: 0px">
         <div class="row flex-nowrap">
             @include('admin.sidebar')
             <div class="col py-3">
+                <button class="btn btn-success create_button">Create</button>
                 <table class="table table-striped">
                     <thead>
                     <tr>

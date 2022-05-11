@@ -17,7 +17,10 @@ class ArtistFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nickname' => $this->faker->name(),
+            'slug' => $this->faker->slug(),
+            'description' => $this->faker->text(200),
+            'from' => $this->faker->country(),
         ];
     }
 }

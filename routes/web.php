@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArtistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('admin')->group(function (){
+    Route::prefix('artists')->group(function (){
+        Route::get('/',[ArtistController::class,'index'])->name('artist.index');
+        Route::get('/create',[ArtistController::class,'create'])->name('artist.create');
+        Route::post('/save',[ArtistController::class,'store'])->name('artist.store');
+    });
+});
+
 Route::get('/', function () {
-    $test = 5;
     return view('admin.welcome');
 });
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
