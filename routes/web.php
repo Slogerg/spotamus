@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VenueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +27,51 @@ Route::prefix('admin')->group(function (){
         Route::post('/save',[ArtistController::class,'store'])->name('artist.store');
         Route::put('/update/{id}',[ArtistController::class,'update'])->name('artist.update');
         Route::delete('/delete/{id}',[ArtistController::class,'destroy'])->name('artist.delete');
+    });
+
+    Route::prefix('events')->group(function (){
+        Route::get('/',[EventController::class,'index'])->name('event.index');
+        Route::get('/create',[EventController::class,'create'])->name('event.create');
+        Route::get('/edit/{id}',[EventController::class,'edit'])->name('event.edit');
+        Route::post('/save',[EventController::class,'store'])->name('event.store');
+        Route::put('/update/{id}',[EventController::class,'update'])->name('event.update');
+        Route::delete('/delete/{id}',[EventController::class,'destroy'])->name('event.delete');
+    });
+
+    Route::prefix('genres')->group(function (){
+        Route::get('/',[GenreController::class,'index'])->name('genre.index');
+        Route::get('/create',[GenreController::class,'create'])->name('genre.create');
+        Route::get('/edit/{id}',[GenreController::class,'edit'])->name('genre.edit');
+        Route::post('/save',[GenreController::class,'store'])->name('genre.store');
+        Route::put('/update/{id}',[GenreController::class,'update'])->name('genre.update');
+        Route::delete('/delete/{id}',[GenreController::class,'destroy'])->name('genre.delete');
+    });
+
+    Route::prefix('tickets')->group(function (){
+        Route::get('/',[TicketController::class,'index'])->name('ticket.index');
+        Route::get('/create',[TicketController::class,'create'])->name('ticket.create');
+        Route::get('/edit/{id}',[TicketController::class,'edit'])->name('ticket.edit');
+        Route::post('/save',[TicketController::class,'store'])->name('ticket.store');
+        Route::put('/update/{id}',[TicketController::class,'update'])->name('ticket.update');
+        Route::delete('/delete/{id}',[TicketController::class,'destroy'])->name('ticket.delete');
+    });
+
+    Route::prefix('venues')->group(function (){
+        Route::get('/',[VenueController::class,'index'])->name('venue.index');
+        Route::get('/create',[VenueController::class,'create'])->name('venue.create');
+        Route::get('/edit/{id}',[VenueController::class,'edit'])->name('venue.edit');
+        Route::post('/save',[VenueController::class,'store'])->name('venue.store');
+        Route::put('/update/{id}',[VenueController::class,'update'])->name('venue.update');
+        Route::delete('/delete/{id}',[VenueController::class,'destroy'])->name('venue.delete');
+    });
+
+    Route::prefix('users')->group(function (){
+        Route::get('/',[UserController::class,'index'])->name('user.index');
+        Route::get('/create',[UserController::class,'create'])->name('user.create');
+        Route::get('/edit/{id}',[UserController::class,'edit'])->name('user.edit');
+        Route::post('/save',[UserController::class,'store'])->name('user.store');
+        Route::put('/update/{id}',[UserController::class,'update'])->name('user.update');
+        Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('user.delete');
     });
 });
 
