@@ -12,5 +12,15 @@ class Artist extends Model
     use InteractsWithMedia, HasUploader;
     use HasFactory;
     protected $table = 'artists';
+    protected $fillable = [
+      'slug',
+      'nickname',
+      'image',
+      'description',
+      'from',
+      'upvotes',
+      'created_at',
+      'updated_at',
+    ];
 
 }

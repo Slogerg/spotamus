@@ -38,8 +38,17 @@ class ArtistController extends Controller
     public function store(Request $request)
     {
        //add image uploader
+        $input = $request->all();
 
-        $artist = Artist::create($request->all());
+        if ($image = $request->file('image')) {
+            $imageDestinationPath = 'uploads/';
+            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($imageDestinationPath, $postImage);
+            $input['image'] = "$postImage";
+        }
+        Artist::create($input);
+
+        return redirect()->route('artist.index');
 
     }
 
@@ -62,7 +71,8 @@ class ArtistController extends Controller
      */
     public function edit($id)
     {
-        //
+        $artist = Artist::where('id',$id)->first();
+        return view('admin.artist.edit',['artist' => $artist]);
     }
 
     /**
@@ -74,7 +84,20 @@ class ArtistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $artist = Artist::where('id',$id)->first();
+
+        $input = $request->all();
+        if ($image = $request->file('image')) {
+            $imageDestinationPath = 'uploads/';
+            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($imageDestinationPath, $postImage);
+            $input['image'] = "$postImage";
+        }else{
+            unset($input['image']);
+        }
+        $artist->update($input);
+
+        return redirect()->route('artist.index');
     }
 
     /**
@@ -85,6 +108,7 @@ class ArtistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Artist::where('id',$id)->delete();
+        return redirect()->route('artist.index');
     }
 }

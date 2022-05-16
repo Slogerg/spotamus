@@ -7,32 +7,45 @@
         <div class="row flex-nowrap">
             @include('admin.sidebar')
             <div class="col py-3">
-                <form action="{{route('artist.store')}}" method="post">
+                <form
+                    @if(isset($artist->id) && !empty($artist->id))
+                        action=" {{route('artist.update',$artist->id)}}"
+                    @else
+                        action="{{route('artist.store')}}"
+                    @endif
+                    method="post"
+                >
                     @csrf
+                    @if(isset($artist->id) && !empty($artist->id))
+                        @method('PUT')
+                    @endif
                     <br>
                     <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Name...">
+                            <input type="text"
+                                   id="nickname"
+                                   name="nickname"
+                                   class="form-control"
+                                   placeholder="Name..."
+                                   value="{{$artist->nickname ?? ''}}">
                         </div>
                         <div class="col">
-                            <input type="text" id="from" name="from" class="form-control" placeholder="Where from...">
+                            <input type="text"
+                                   id="from"
+                                   name="from"
+                                   class="form-control"
+                                   placeholder="Where from..."
+                                   value="{{$artist->from ?? ''}}"
+                            >
                         </div>
                     </div>
                         <br><br>
                     </div>
-                    <div id="app">
-                        <file-uploader
-                            :unlimited="true"
-                            collection="avatars"
-                            :tokens="{{ json_encode(old('media', [])) }}"
-                            label="Upload Avatar"
-                            notes="Supported types: jpeg, png,jpg,gif"
-                            accept="image/jpeg,image/png,image/jpg,image/gif"
-                        ></file-uploader>
-                    </div>
+
+                    <input class="form-control" type="file" name="image" value="{{$artist->image ?? ''}}">
                     <br>
-                    <textarea id="myeditorinstance" name="description"></textarea>
+                    <textarea id="myeditorinstance" name="description">{!! $artist->description ?? '' !!}</textarea>
                     <br>
                     <button type="submit" class="btn btn-success">Save</button>
 

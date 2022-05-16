@@ -18,7 +18,10 @@ Route::prefix('admin')->group(function (){
     Route::prefix('artists')->group(function (){
         Route::get('/',[ArtistController::class,'index'])->name('artist.index');
         Route::get('/create',[ArtistController::class,'create'])->name('artist.create');
+        Route::get('/edit/{id}',[ArtistController::class,'edit'])->name('artist.edit');
         Route::post('/save',[ArtistController::class,'store'])->name('artist.store');
+        Route::put('/update/{id}',[ArtistController::class,'update'])->name('artist.update');
+        Route::delete('/delete/{id}',[ArtistController::class,'destroy'])->name('artist.delete');
     });
 });
 
