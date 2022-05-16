@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Genre>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ticket>
  */
-class GenreFactory extends Factory
+class TicketFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,7 @@ class GenreFactory extends Factory
     {
         return [
             'title' => $this->faker->name(),
-            'slug' => $this->faker->slug(),
-            'description' => $this->faker->text(200),
+            'url'   => 'https://github.com/fzaninotto/Faker',
         ];
     }
 }

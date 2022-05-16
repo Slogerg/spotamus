@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Genre>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Venue>
  */
-class GenreFactory extends Factory
+class VenueFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,6 @@ class GenreFactory extends Factory
     {
         return [
             'title' => $this->faker->name(),
-            'slug' => $this->faker->slug(),
-            'description' => $this->faker->text(200),
         ];
     }
 }

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //php artisan db:seed
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::insert([
@@ -23,5 +24,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Artist::factory(10)->create();
+        \App\Models\Genre::factory(10)->create();
+        \App\Models\Ticket::factory(4)->create();
+        \App\Models\Venue::factory(10)->create();
     }
 }

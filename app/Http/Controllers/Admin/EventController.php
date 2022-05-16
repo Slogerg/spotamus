@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Genre;
+use App\Models\Ticket;
+use App\Models\Venue;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -26,7 +29,14 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('admin.event.edit');
+        $venues = Venue::all();
+        $tickets = Ticket::all();
+        $genres = Genre::all();
+        return view('admin.event.edit',[
+            'venues' => $venues,
+            'tickets' => $tickets,
+            'genres' => $genres,
+        ]);
     }
 
     /**
@@ -70,7 +80,13 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::where('id',$id)->first();
-        return view('admin.event.edit',['event' => $event]);
+        $venues = Venue::all();
+        $tickets = Ticket::all();
+        return view('admin.event.edit',[
+            'event' => $event,
+            'venues' => $venues,
+            'ticket' => $tickets,
+        ]);
     }
 
     /**

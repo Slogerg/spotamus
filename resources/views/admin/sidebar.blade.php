@@ -16,32 +16,28 @@
                 </a>
             </li>
             <li>
-                <a href="*" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="{{route('event.index')}}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Events</span>
                 </a>
             </li>
             <li>
-                <a href="*" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="{{route('genre.index')}}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Genres</span>
                 </a>
             </li>
-{{--            <li>--}}
-{{--                <a href="*" data-bs-toggle="collapse" class="nav-link px-0 align-middle">--}}
-{{--                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Roles</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+
             <li>
-                <a href="*" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="{{route('ticket.index')}}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Tickets</span>
                 </a>
             </li>
             <li>
-                <a href="*" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="{{route('venue.index')}}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Venues</span>
                 </a>
             </li>
             <li>
-                <a href="*" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="{{route('user.index')}}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
                 </a>
             </li>

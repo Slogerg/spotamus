@@ -21,4 +21,15 @@ class Event extends Model
         'description',
         'upvotes',
     ];
+
+    public function venue(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        //Стаття належить категоріям
+        return $this->belongsTo(Venue::class);
+    }
+
+    public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }
