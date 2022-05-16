@@ -22,7 +22,7 @@
                     <tbody>
                     @foreach($events as $event)
                         <tr>
-                            <th scope="row">{{$artist->id}}</th>
+                            <th scope="row">{{$event->id}}</th>
                             <td>{{$event->title}}</td>
                             <td>{{$event->venue->title}}</td>
                             <td>{{$event->status}}</td>

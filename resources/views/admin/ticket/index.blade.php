@@ -25,9 +25,6 @@
                             <td>{{$ticket->created_at}}</td>
                             <td>
                                 <div style="display: flex">
-
-
-                                    <a href=""><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
                                     <a href="{{route('ticket.edit',$ticket->id)}}"><img class="svg_icon"
                                                                                         src="{{url('svg/edit.svg')}}"
                                                                                         alt=""></a>

@@ -8,6 +8,7 @@ use App\Models\Genre;
 use App\Models\Ticket;
 use App\Models\Venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -55,8 +56,18 @@ class EventController extends Controller
             $image->move($imageDestinationPath, $postImage);
             $input['image'] = "$postImage";
         }
-        Event::create($input);
 
+        Event::create($input);
+        $id = Event::max('id');
+
+        foreach ($input['tickets'] as $ticket)
+        {
+            DB::table('event_ticket')->insert([
+                'ticket_id' => $ticket,
+                'event_id'  => $id,
+            ]);
+        }
+//        $event->tickets()->attach($input['tickets']);
         return redirect()->route('event.index');
     }
 
@@ -82,10 +93,13 @@ class EventController extends Controller
         $event = Event::where('id',$id)->first();
         $venues = Venue::all();
         $tickets = Ticket::all();
+        $genres = Genre::all();
+
         return view('admin.event.edit',[
             'event' => $event,
             'venues' => $venues,
-            'ticket' => $tickets,
+            'tickets' => $tickets,
+            'genres' => $genres
         ]);
     }
 
@@ -111,6 +125,15 @@ class EventController extends Controller
         }
         $event->update($input);
 
+
+        DB::table('event_ticket')->where('event_id',$id)->delete();
+        foreach ($input['tickets'] as $ticket)
+        {
+            DB::table('event_ticket')->insert([
+                'ticket_id' => $ticket,
+                'event_id'  => $id,
+            ]);
+        }
         return redirect()->route('event.index');
     }
 

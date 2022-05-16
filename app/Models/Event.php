@@ -15,6 +15,7 @@ class Event extends Model
         'slug',
         'event_status_id',
         'venue_id',
+        'genre_id',
         'start_date',
         'end_time',
         'image',
@@ -28,8 +29,8 @@ class Event extends Model
         return $this->belongsTo(Venue::class);
     }
 
-    public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->belongsToMany(Ticket::class);
     }
 }

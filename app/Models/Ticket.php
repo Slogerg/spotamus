@@ -13,4 +13,9 @@ class Ticket extends Model
         'title',
         'url',
     ];
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
+    }
 }

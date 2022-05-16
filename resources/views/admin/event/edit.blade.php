@@ -36,15 +36,15 @@
                                    id="start_date"
                                    name="start_date"
                                    class="form-control"
-                                   value="{{$event->start_date ?? ''}}">
+                                   value="{{ isset($event->start_date) ? date('Y-m-d\TH:i', strtotime($event->start_date)) : ''}}">
                         </div>
                         <div class="col">
                             <input type="datetime-local"
                                    id="end_time"
                                    name="end_time"
                                    class="form-control"
-                                   value="{{$event->end_time ?? ''}}"
-                            >
+                                   value="{{isset($event->end_time) ? date('Y-m-d\TH:i', strtotime($event->end_time)) : ''}}">
+
                         </div>
                     </div>
                         <br><br>
@@ -64,9 +64,10 @@
                     </div>
                     <br><br>
                     <div class="form-group">
-                        <label for='status'>Genre</label><select class="form-control" name="genre_id" id='genre_id'>
+                        <label for='status'>Genre</label>
+                        <select class="form-control" name="genre_id" id='genre_id'>
                             @foreach($genres as $genre)
-                                <option value="{{$genre_id}}">{{$genre_title}}</option>
+                                <option value="{{$genre->id}}">{{$genre->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -80,11 +81,24 @@
                                 @endforeach
                             </select>
                     </div>
-
+                    <br>
+                    <hr>
+                    <br>
                     <div class="form-group">
                         <h3>Tickets</h3>
                         @foreach($tickets as $ticket)
-                            <input type="checkbox" name="tickets[]" value="{{$ticket->title}}">
+
+                            <input
+                                @if(isset($event->id) && \DB::table('event_ticket')->where('ticket_id',$ticket->id)->where('event_id',$event->id)->exists())
+                                    checked
+                                @endif
+                                type="checkbox"
+                                class="form-check-input"
+                                id="tickets[]"
+                                name="tickets[]"
+                                value="{{$ticket->id}}">
+                            <label for="tickets[]">{{$ticket->title}}</label>
+                            <br>
                         @endforeach
                     </div>
                     <br>

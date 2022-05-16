@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->string('slug')->unique();
-            $table->foreignId('status')->nullable();
+            $table->string('status')->nullable();
             $table->foreignId('venue_id');
+            $table->foreignId('genre_id');
             $table->dateTime('start_date');
             $table->dateTime('end_time')->nullable();
             $table->string('image')->nullable();

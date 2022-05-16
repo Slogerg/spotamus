@@ -18,7 +18,13 @@ class EventObserver
 
     protected function setSlug(Event $event)
     {
-        if (empty($event->slug)){
+        if(Event::where('slug',\Str::slug($event->title))->exists())
+        {
+            $event_double = Event::where('slug',\Str::slug($event->title))->first();
+
+            $event->slug = \Str::slug($event->title).'-'.$event_double->id;
+        }
+        elseif (empty($event->slug)){
             $event->slug = \Str::slug($event->title);
         }
     }
