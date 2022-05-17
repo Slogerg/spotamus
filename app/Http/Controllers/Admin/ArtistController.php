@@ -38,14 +38,18 @@ class ArtistController extends Controller
     public function store(Request $request)
     {
        //add image uploader
-        $input = $request->all();
+        $input = $request->except('image');
 
-        if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
-            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($imageDestinationPath, $postImage);
-            $input['image'] = "$postImage";
+        if( $request->hasFile('image')){
+
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extention = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = "image/".$filename."_".time().".".$extention;
+            $path = $request->file('image')->storeAs('public/', $fileNameToStore);
+
         }
+        $input['image'] =$path;
         Artist::create($input);
 
         return redirect()->route('artist.index');
@@ -87,15 +91,21 @@ class ArtistController extends Controller
         $artist = Artist::where('id',$id)->first();
 
         $input = $request->all();
-        if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
-            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($imageDestinationPath, $postImage);
-            $input['image'] = "$postImage";
-        }else{
-            unset($input['image']);
+
+
+        if(isset($input['image'])){
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extention = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = "image/".$filename."_".time().".".$extention;
+            $path = $request->file('image')->storeAs('public/', $fileNameToStore);
         }
+
         $artist->update($input);
+
+        if(isset($input['image']))
+            $artist->update(['image' => $path]);
+
 
         return redirect()->route('artist.index');
     }

@@ -24,7 +24,7 @@
 <body>
 
     <div id="app">
-        <nav style="background:rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav style="background:rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;" class="navbar navbar-expand-md navbar-dark bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -42,6 +42,14 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('game') }}">Game "Guess the song"</a>
+                        </li>
+                        @if(Auth::user() && Auth::user()->email == 'antonslogerg@gmail.com')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('event.index') }}">Admin Panel</a>
+                        </li>
+                        @endif
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

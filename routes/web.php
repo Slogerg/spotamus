@@ -91,9 +91,14 @@ Route::prefix('game')->group(function (){
     Route::get('/playlist',[\App\Http\Controllers\Game\PlaylistController::class,'index'])->name('game.playlist');
 });
 
+//Front View of Site
+Route::get('/events',[\App\Http\Controllers\Site\EventController::class,'index'])->name('events');
+Route::get('/event/{slug}',[\App\Http\Controllers\Site\EventController::class,'single'])->name('event.show');
+
+
 Route::get('/', function () {
-    return view('admin.welcome');
-});
+    return view('home');
+})->name('home');
 
 
 

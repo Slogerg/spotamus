@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('status')->nullable();
             $table->foreignId('venue_id');
+            $table->foreignId('artist_id');
             $table->foreignId('genre_id');
             $table->dateTime('start_date');
             $table->dateTime('end_time')->nullable();

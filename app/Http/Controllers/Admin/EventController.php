@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
 use App\Models\Event;
 use App\Models\Genre;
 use App\Models\Ticket;
@@ -30,13 +31,15 @@ class EventController extends Controller
      */
     public function create()
     {
-        $venues = Venue::all();
-        $tickets = Ticket::all();
-        $genres = Genre::all();
+        $venues = Venue::orderBy('title')->get();
+        $tickets = Ticket::orderBy('title')->get();
+        $genres = Genre::orderBy('title')->get();
+        $artists = Artist::orderBy('nickname')->get();
         return view('admin.event.edit',[
             'venues' => $venues,
             'tickets' => $tickets,
             'genres' => $genres,
+            'artists' => $artists,
         ]);
     }
 
@@ -48,14 +51,18 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        $input = $request->except('image');
 
-        if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
-            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($imageDestinationPath, $postImage);
-            $input['image'] = "$postImage";
+        if( $request->hasFile('image')){
+
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extention = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = "image/".$filename."_".time().".".$extention;
+            $path = $request->file('image')->storeAs('public/', $fileNameToStore);
+
         }
+        $input['image'] =$path;
 
         Event::create($input);
         $id = Event::max('id');
@@ -71,16 +78,6 @@ class EventController extends Controller
         return redirect()->route('event.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -91,15 +88,17 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::where('id',$id)->first();
-        $venues = Venue::all();
-        $tickets = Ticket::all();
-        $genres = Genre::all();
+        $venues = Venue::orderBy('title')->get();
+        $tickets = Ticket::orderBy('title')->get();
+        $genres = Genre::orderBy('title')->get();
+        $artists = Artist::orderBy('nickname')->get();
 
         return view('admin.event.edit',[
             'event' => $event,
             'venues' => $venues,
             'tickets' => $tickets,
-            'genres' => $genres
+            'genres' => $genres,
+            'artists' => $artists,
         ]);
     }
 
@@ -115,15 +114,21 @@ class EventController extends Controller
         $event = Event::where('id',$id)->first();
 
         $input = $request->all();
-        if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
-            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($imageDestinationPath, $postImage);
-            $input['image'] = "$postImage";
-        }else{
-            unset($input['image']);
+
+
+
+        if(isset($input['image'])){
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extention = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = "image/".$filename."_".time().".".$extention;
+            $path = $request->file('image')->storeAs('public/', $fileNameToStore);
         }
+
         $event->update($input);
+
+        if(isset($input['image']))
+            $event->update(['image' => $path]);
 
 
         DB::table('event_ticket')->where('event_id',$id)->delete();

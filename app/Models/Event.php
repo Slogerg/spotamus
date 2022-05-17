@@ -19,14 +19,25 @@ class Event extends Model
         'start_date',
         'end_time',
         'image',
+        'status',
         'description',
         'upvotes',
+        'artist_id'
     ];
 
     public function venue(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        //Стаття належить категоріям
         return $this->belongsTo(Venue::class);
+    }
+
+    public function genre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Genre::class);
+    }
+
+    public function artist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Artist::class);
     }
 
     public function tickets()

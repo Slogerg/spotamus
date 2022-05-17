@@ -25,9 +25,10 @@ class GameController extends Controller
 
     private function initial()
     {
-
-        $playlist = Auth::user()->currentPlaylist;
-        if(!$playlist)
+        if(!is_null(Auth::user())){
+            $playlist = Auth::user()->currentPlaylist;
+        }
+        else
             $playlist = "4OSIkmIjmBFz5monq4GqVj";
 
         // Attempt to get access token

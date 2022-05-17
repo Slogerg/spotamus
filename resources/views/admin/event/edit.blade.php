@@ -14,6 +14,7 @@
                         action="{{route('event.store')}}"
                     @endif
                     method="post"
+                    enctype="multipart/form-data"
                 >
                     @csrf
                     @if(isset($event->id) && !empty($event->id))
@@ -26,7 +27,9 @@
                                name="title"
                                class="form-control"
                                placeholder="Title..."
-                               value="{{$event->title ?? ''}}">
+                               value="{{$event->title ?? ''}}"
+                                required
+                        >
                     </div>
                     <br><br>
                     <div class="form-group">
@@ -36,7 +39,8 @@
                                    id="start_date"
                                    name="start_date"
                                    class="form-control"
-                                   value="{{ isset($event->start_date) ? date('Y-m-d\TH:i', strtotime($event->start_date)) : ''}}">
+                                   value="{{ isset($event->start_date) ? date('Y-m-d\TH:i', strtotime($event->start_date)) : ''}}"
+                                   required>
                         </div>
                         <div class="col">
                             <input type="datetime-local"
@@ -80,6 +84,17 @@
                                     <option value="{{$venue->id}}">{{$venue->title}}</option>
                                 @endforeach
                             </select>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="form-group">
+
+                        <label for="artist_id"> Artist</label>
+                        <select class="form-control" name="artist_id">
+                            @foreach($artists as $artist)
+                                <option value="{{$artist->id}}">{{$artist->nickname}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <br>
                     <hr>

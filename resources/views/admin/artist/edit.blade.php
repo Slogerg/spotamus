@@ -14,6 +14,7 @@
                         action="{{route('artist.store')}}"
                     @endif
                     method="post"
+                    enctype="multipart/form-data"
                 >
                     @csrf
                     @if(isset($artist->id) && !empty($artist->id))

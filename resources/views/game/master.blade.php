@@ -43,8 +43,9 @@
                         </div>
                         <div class="navbar-menu">
                             <div class="navbar-end">
+                                <a class="navbar-item" href="/">Головна сторінка</a>
                                 <a class="navbar-item" href="{{route('game.leaderboard')}}">Список переможців</a>
-                                @if (Auth::check())
+                            @if (Auth::check())
                                     <span class="navbar-item"><a class="button is-info" href="{{route('game.playlist')}}">Плейліст</a></span>
                                     <div class="navbar-item">{{ Auth::user()->name }}</div>
                                     <div class="navbar-item"><a href="{{route('home')}}">Home</a></div>
