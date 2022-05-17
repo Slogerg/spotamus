@@ -20,6 +20,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedInteger('songs_seen')->default(0);
+            $table->unsignedInteger('songs_correct')->default(0)->index();
+            $table->integer('score')->default(0)->index();
+            $table->string('currentPlaylist')->nullable();
             $table->timestamps();
         });
     }
