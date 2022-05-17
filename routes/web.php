@@ -92,9 +92,14 @@ Route::prefix('game')->group(function (){
 });
 
 //Front View of Site
-Route::get('/events',[\App\Http\Controllers\Site\EventController::class,'index'])->name('events');
-Route::get('/event/{slug}',[\App\Http\Controllers\Site\EventController::class,'single'])->name('event.show');
+Route::get('/events',[\App\Http\Controllers\Site\EventController::class,'index'])->name('front.events');
+Route::get('/event/{slug}',[\App\Http\Controllers\Site\EventController::class,'single'])->name('front.event.show');
 
+Route::get('/genres',[\App\Http\Controllers\Site\GenreController::class,'index'])->name('front.genres');
+Route::get('/genre/{slug}',[\App\Http\Controllers\Site\GenreController::class,'single'])->name('front.genre.show');
+
+Route::get('/artists',[\App\Http\Controllers\Site\ArtistController::class,'index'])->name('front.artists');
+Route::get('/artist/{slug}',[\App\Http\Controllers\Site\ArtistController::class,'single'])->name('front.artist.show');
 
 Route::get('/', function () {
     return view('home');

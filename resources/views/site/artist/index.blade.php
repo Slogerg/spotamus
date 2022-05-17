@@ -6,7 +6,7 @@
             <!-- Blog entries-->
             <div class="col-md-8">
                 <h1 class="my-4">
-                    Останні концерти
+                    Артисти
                 </h1>
 
                 @foreach($items as $item)
@@ -17,10 +17,10 @@
                             <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap" />
                         @endif
                         <div class="card-body">
-                            <h6 style="color: green;">{{$item->artist->nickname}} on {{$item->venue->title}}</h6>
-                            <h2 class="card-title">{{$item->title}}</h2>
+                            <h6 style="color: green;">{{$item->nickname}} from {{$item->from}}</h6>
+                            <h2 class="card-title">{{$item->nickname}}</h2>
 
-                            <a class="btn btn-primary" href="{{route('front.event.show',$item->slug)}}">Переглянути →</a>
+                            <a class="btn btn-primary" href="{{route('front.artist.show',$item->slug)}}">Переглянути →</a>
                         </div>
                         <div class="card-footer text-muted">
                             {{$item->created_at}}
@@ -32,7 +32,7 @@
             <div class="col-md-4">
                 <!-- Side widget-->
                 <div class="card my-4">
-                    <h5 class="card-header">Всі статті блогу</h5>
+                    <h5 class="card-header">Всі артисти</h5>
                     <div class="card-body">Тут ви можете отримати доступ до всіх статей блогу</div>
                 </div>
             </div>

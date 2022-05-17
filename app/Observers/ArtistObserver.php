@@ -18,7 +18,12 @@ class ArtistObserver
 
     protected function setSlug(Artist $artist)
     {
-        if (empty($artist->slug)){
+        if(Artist::where('slug',\Str::slug($artist->nickname))->exists())
+        {
+            $artist_double = Artist::where('slug',\Str::slug($artist->nickname))->first();
+            $artist->slug = \Str::slug($artist->nickname).'-'.$artist_double->id;
+        }
+        elseif (empty($genre->slug)){
             $artist->slug = \Str::slug($artist->nickname);
         }
     }

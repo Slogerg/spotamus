@@ -23,7 +23,7 @@
             <h2>Найближчі події:</h2>
             <hr>
             <p>Перейдіть за посиланням і подивіться актуальні тури</p>
-            <a class="btn btn-primary btn-lg" href="{{route('events')}}">Перейти до подій</a>
+            <a class="btn btn-primary btn-lg" href="{{route('front.events')}}">Перейти до подій</a>
 
         </div>
         <div class="col-md-4 mb-5">
@@ -51,11 +51,10 @@
             <div class="card h-100">
                 <img class="card-img-top" src="https://placehold.it/300x200" alt="">
                 <div class="card-body">
-                    <h4 class="card-title">Замовити архітектора</h4>
-                    <p class="card-text">Для того, щоб замовити архітектора до свого адресу, будь ласка, зателефонуйте за номером вказаним на цій сторінці або нижче.</p>
+                    <h4 class="card-title">Переглянути базу знань про жанри</h4>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Зателефонувати!</a>
+                    <a href="{{route('front.genres')}}" class="btn btn-primary">Жанри</a>
                 </div>
             </div>
         </div>
@@ -63,11 +62,11 @@
             <div class="card h-100">
                 <img class="card-img-top" src="https://placehold.it/300x200" alt="">
                 <div class="card-body">
-                    <h4 class="card-title">Замовити послуги редактора</h4>
-                    <p class="card-text">Редактор допоможе у вашому сайті розмістити певний матеріал який буде притягувати клієнтів</p>
+                    <h4 class="card-title">Переглянути інформацію про артистів</h4>
+{{--                    <p class="card-text">Редактор допоможе у вашому сайті розмістити певний матеріал який буде притягувати клієнтів</p>--}}
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Зателефонувати!</a>
+                    <a href="{{route('front.artists')}}" class="btn btn-primary">Артисти</a>
                 </div>
             </div>
         </div>

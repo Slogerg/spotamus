@@ -18,7 +18,13 @@ class GenreObserver
 
     protected function setSlug(Genre $genre)
     {
-        if (empty($genre->slug)){
+        if(Genre::where('slug',\Str::slug($genre->title))->exists())
+        {
+            $genre_double = Genre::where('slug',\Str::slug($genre->title))->first();
+
+            $genre->slug = \Str::slug($genre->title).'-'.$genre_double->id;
+        }
+        elseif (empty($genre->slug)){
             $genre->slug = \Str::slug($genre->title);
         }
     }
