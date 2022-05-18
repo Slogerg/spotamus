@@ -11,10 +11,10 @@ class ArtistObserver
         $this->setSlug($artist);
     }
 
-    public function updating(Artist $artist)
-    {
-        $this->setSlug($artist);
-    }
+//    public function updating(Artist $artist)
+//    {
+//        $this->setSlug($artist);
+//    }
 
     protected function setSlug(Artist $artist)
     {

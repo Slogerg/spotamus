@@ -11,10 +11,10 @@ class GenreObserver
         $this->setSlug($genre);
     }
 
-    public function updating(Genre $genre)
-    {
-        $this->setSlug($genre);
-    }
+//    public function updating(Genre $genre)
+//    {
+//        $this->setSlug($genre);
+//    }
 
     protected function setSlug(Genre $genre)
     {

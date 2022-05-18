@@ -25,7 +25,7 @@ class GameController extends Controller
 
     private function initial()
     {
-        if(!is_null(Auth::user())){
+        if(!is_null(Auth::user()) && !is_null(Auth::user()->currentPlaylist)){
             $playlist = Auth::user()->currentPlaylist;
         }
         else

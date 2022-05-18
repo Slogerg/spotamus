@@ -16,7 +16,7 @@ class ArtistController extends Controller
 
     public function single($slug)
     {
-        $artists = Artist::where('slug',$slug)->first();
-        return view('site.artist.single',['item' => $artists]);
+        $artist = Artist::where('slug',$slug)->first();
+        return view('site.artist.single',['item' => $artist]);
     }
 }

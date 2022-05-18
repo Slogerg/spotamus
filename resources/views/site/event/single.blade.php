@@ -1,12 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" type="text/css" href="{{url('/css/site/main.css')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="container">
         <div class="row">
             <!-- Post Content Column -->
-            <div class="col-lg-8">
+            <div class="col-lg-8" >
+
                 <!-- Title -->
                 <h1 class="mt-4">{{$item->title}}</h1>
+
+                <!-- Upvote -->
+                <div class="upvote-container">
+                    <p class="upvotes" style=" margin-right: 10px">Upvote</p>
+                    <p class="upvotes" id='number'>{{$item->upvotes}}</p>
+                    <form action="{{route('upvote')}}" method="post">
+                        @csrf
+                        <input type="text" value="{{$item->id}}" name="id" hidden>
+                        <button class="delete-button">
+                            <img class="upvote" src="{{url('svg/upvote.svg')}}" alt=""></button>
+                    </form>
+                </div>
+
                 <!-- Author -->
                 <p class="lead">
                     Представлений артист:
@@ -57,7 +73,6 @@
 {{--                        <div class="media-body">--}}
 {{--                            <h5 class="mt-0">--}}
 {{--                                {{$comments->user->name}}--}}
-
 {{--                            </h5>--}}
 {{--                            {{$comments->text_comment}}--}}
 {{--                        </div>--}}
@@ -67,4 +82,28 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(".delete-button").click(function(e){
+            e.preventDefault();
+            var id = $("input[name=id]").val();
+            var type = 'event';
+
+            $.ajax({
+                type:'POST',
+                url:"{{ route('upvote') }}",
+                data:{id:id,type:type},
+                success:function(data){
+                    $('#number').text(data.number);
+                }
+            });
+
+        });
+    </script>
 @endsection

@@ -11,10 +11,10 @@ class EventObserver
         $this->setSlug($event);
     }
 
-    public function updating(Event $event)
-    {
-        $this->setSlug($event);
-    }
+//    public function updating(Event $event)
+//    {
+//        $this->setSlug($event);
+//    }
 
     protected function setSlug(Event $event)
     {

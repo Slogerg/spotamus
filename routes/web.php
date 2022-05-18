@@ -101,6 +101,8 @@ Route::get('/genre/{slug}',[\App\Http\Controllers\Site\GenreController::class,'s
 Route::get('/artists',[\App\Http\Controllers\Site\ArtistController::class,'index'])->name('front.artists');
 Route::get('/artist/{slug}',[\App\Http\Controllers\Site\ArtistController::class,'single'])->name('front.artist.show');
 
+Route::post('/upvote',[\App\Http\Controllers\Site\UpvoteController::class, 'upvote'])->middleware(['auth'])->name('upvote');
+
 Route::get('/', function () {
     return view('home');
 })->name('home');

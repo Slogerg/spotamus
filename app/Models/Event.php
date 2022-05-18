@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use LaravelInteraction\Vote\Concerns\Voteable;
+use LaravelInteraction\Vote\Concerns\Voter;
 
 class Event extends Model
 {
     use HasFactory;
     protected $table = 'events';
+    use Voter;
 
     protected $fillable = [
         'title',
