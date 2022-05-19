@@ -38,6 +38,11 @@ class ArtistController extends Controller
     public function store(Request $request)
     {
        //add image uploader
+
+        $request->validate([
+            'nickname' => 'unique:artists|required|max:255',
+        ]);
+
         $input = $request->except('image');
 
         if( $request->hasFile('image')){
@@ -88,6 +93,9 @@ class ArtistController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nickname' => 'unique:artists|required|max:255',
+        ]);
         $artist = Artist::where('id',$id)->first();
 
         $input = $request->all();

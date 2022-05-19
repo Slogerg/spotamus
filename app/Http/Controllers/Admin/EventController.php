@@ -51,6 +51,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'unique:events|required|max:255',
+        ]);
+
         $input = $request->except('image');
 
         if( $request->hasFile('image')){
@@ -111,6 +116,9 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'unique:events|required|max:255',
+        ]);
         $event = Event::where('id',$id)->first();
 
         $input = $request->all();

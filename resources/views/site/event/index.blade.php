@@ -8,34 +8,40 @@
                 <h1 class="my-4">
                     Останні концерти
                 </h1>
+                <div class="items-events">
+                    @include('site.event.items',['items' => $items])
+                </div>
 
-                @foreach($items as $item)
-                    <div class="card mb-4">
-                        @if($item->image)
-                            <img class="img-fluid rounded" src="{{asset(str_replace('public/','storage',$item->image))}}" alt="">
-                        @else
-                            <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap" />
-                        @endif
-                        <div class="card-body">
-                            <h6 style="color: green;">{{$item->artist->nickname}} on {{$item->venue->title}}</h6>
-                            <h2 class="card-title">{{$item->title}}</h2>
-
-                            <a class="btn btn-primary" href="{{route('front.event.show',$item->slug)}}">Переглянути →</a>
-                        </div>
-                        <div class="card-footer text-muted">
-                            {{$item->created_at}}
-                        </div>
-                    </div>
-                @endforeach
             </div>
 
             <div class="col-md-4">
                 <!-- Side widget-->
                 <div class="card my-4">
-                    <h5 class="card-header">Всі статті блогу</h5>
-                    <div class="card-body">Тут ви можете отримати доступ до всіх статей блогу</div>
+                    <h5 class="card-header">Пошук подій</h5>
+                    <div class="card-body">
+                        <input id="search" type="text" class="form-control" placeholder="Введіть назву концерту">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('#search').on('keyup', function () {
+            value = $(this).val();
+            console.log(value);
+            $.ajax({
+                type: 'get',
+                url: '{{route('front.event.search')}}',
+                data: {'keywords': value},
+                success: function (data) {
+                    console.log(data);
+                    $(".items-events").html(data.html);
+                }
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({headers: {'csrftoken': '{{ csrf_token() }}'}});
+    </script>
 @endsection

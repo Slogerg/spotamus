@@ -9,34 +9,40 @@
                 <h1 class="my-4">
                     Артисти
                 </h1>
-
-                @foreach($items as $item)
-                    <div class="card mb-4">
-                        @if($item->image)
-                            <img class="img-fluid rounded" src="{{asset(str_replace('public/','storage',$item->image))}}" alt="">
-                        @else
-                            <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap" />
-                        @endif
-                        <div class="card-body">
-                            <h6 style="color: green;">{{$item->nickname}} from {{$item->from}}</h6>
-                            <h2 class="card-title">{{$item->nickname}}</h2>
-
-                            <a class="btn btn-primary" href="{{route('front.artist.show',$item->slug)}}">Переглянути →</a>
-                        </div>
-                        <div class="card-footer text-muted">
-                            {{$item->created_at}}
-                        </div>
-                    </div>
-                @endforeach
+                <div class="items-artists">
+                    @include('site.artist.items',['items' => $items])
+                </div>
             </div>
 
             <div class="col-md-4">
                 <!-- Side widget-->
                 <div class="card my-4">
-                    <h5 class="card-header">Всі артисти</h5>
-                    <div class="card-body">Тут ви можете отримати доступ до всіх статей блогу</div>
+                    <h5 class="card-header">Пошук артиста</h5>
+                    <div class="card-body">
+                        <input id="search" type="text" class="form-control" placeholder="Введіть назву артиста">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $('#search').on('keyup', function () {
+            value = $(this).val();
+            console.log(value);
+            $.ajax({
+                type: 'get',
+                url: '{{route('front.artist.search')}}',
+                data: {'keywords': value},
+                success: function (data) {
+                    console.log(data);
+                    $(".items-artists").html(data.html);
+                }
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({headers: {'csrftoken': '{{ csrf_token() }}'}});
+    </script>
 @endsection

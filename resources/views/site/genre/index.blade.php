@@ -4,23 +4,32 @@
 
     <main>
         <div class="container-xxl page-body">
-            <div class="row card-wrapper">
-                @foreach($items as $item)
-                <div class="col-xl-3 col-sm-6">
-                    <div class="card" style="width: 18rem">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$item->title}}</h5>
-                            <p class="card-text">
-                                {!! substr($item->description, 0, 100) !!}
-                            </p>
-                            <a href="{{route('front.genre.show',$item->slug)}}" class="btn btn-success"
-                            >Взнати більше</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+            <br>
+            <input id="search" type="text" style="background-color: white" class="form-control" placeholder="Введіть назву артиста">
+            <br>
+
+            <div class="row card-wrapper" id="items-genres">
+                @include('site.genre.items',['items' => $items])
             </div>
         </div>
     </main>
+    <script type="text/javascript">
+        $('#search').on('keyup', function () {
+            value = $(this).val();
+            console.log(value);
+            $.ajax({
+                type: 'get',
+                url: '{{route('front.genre.search')}}',
+                data: {'keywords': value},
+                success: function (data) {
+                    console.log(data);
+                    $("#items-genres").html(data.html);
+                }
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({headers: {'csrftoken': '{{ csrf_token() }}'}});
+    </script>
 @endsection

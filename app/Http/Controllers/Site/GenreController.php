@@ -19,4 +19,14 @@ class GenreController extends Controller
         $genre = Genre::where('slug',$slug)->first();
         return view('site.genre.single',['item' => $genre]);
     }
+
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $genres = Genre::where('title','like','%'.$keywords.'%')->get();
+
+        $returnHtml = view('site.genre.items',['items' => $genres])->render();
+        return response()->json(['success' => true,'html' => $returnHtml]);
+    }
 }

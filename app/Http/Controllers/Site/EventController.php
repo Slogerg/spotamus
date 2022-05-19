@@ -20,5 +20,12 @@ class EventController extends Controller
         return view('site.event.single',['item' => $event]);
     }
 
+    public function search(Request $request)
+    {
 
+        $keywords = $request->keywords;
+        $events = Event::query()->where('title','like','%'.$keywords.'%')->get();
+        $returnHtml = view('site.event.items',['items' => $events])->render();
+        return response()->json(['success' => true,'html' => $returnHtml]);
+    }
 }

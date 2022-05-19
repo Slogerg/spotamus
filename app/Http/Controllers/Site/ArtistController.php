@@ -19,4 +19,14 @@ class ArtistController extends Controller
         $artist = Artist::where('slug',$slug)->first();
         return view('site.artist.single',['item' => $artist]);
     }
+
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $artists = Artist::where('nickname','like','%'.$keywords.'%')->get();
+
+        $returnHtml = view('site.artist.items',['items' => $artists])->render();
+        return response()->json(['success' => true,'html' => $returnHtml]);
+    }
 }
