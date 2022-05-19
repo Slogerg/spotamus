@@ -99,6 +99,10 @@
                 type:'POST',
                 url:"{{ route('upvote') }}",
                 data:{id:id,type:type},
+                statusCode: {
+                    401: function() {
+                        window.location = "/login";
+                    }},
                 success:function(data){
                     $('#number').text(data.number);
                 }

@@ -28,7 +28,7 @@ class ArtistObserver
 //        }
 
         if (empty($artist->slug)){
-            $artist->slug = \Str::slug($artist->title);
+            $artist->slug = \Str::slug($artist->nickname);
         }
     }
 }

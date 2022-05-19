@@ -10,7 +10,7 @@ class ArtistController extends Controller
 {
     public function index()
     {
-        $artists = Artist::orderByDesc('created_at')->get();
+        $artists = Artist::orderByDesc('created_at')->paginate(10);
         return view('site.artist.index', ['items' => $artists]);
     }
 

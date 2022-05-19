@@ -39,6 +39,18 @@
                     @endforeach
                     </tbody>
                 </table>
+                @if($tickets->total() > $tickets->count())
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    {{ $tickets->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

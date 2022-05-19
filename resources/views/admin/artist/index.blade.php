@@ -45,8 +45,22 @@
                     @endforeach
                     </tbody>
                 </table>
+                @if($artists->total() > $artists->count())
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    {{ $artists->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
+
+
     </div>
     <script>
         document.getElementById("delete").onclick = function () {

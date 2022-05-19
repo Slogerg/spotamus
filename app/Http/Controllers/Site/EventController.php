@@ -10,7 +10,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::orderByDesc('created_at')->get();
+        $events = Event::orderByDesc('created_at')->paginate(10);
         return view('site.event.index', ['items' => $events]);
     }
 

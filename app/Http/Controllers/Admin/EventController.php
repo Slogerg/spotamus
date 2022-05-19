@@ -20,7 +20,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::orderByDesc('id')->paginate(10);
         return view('admin.event.index',['events' => $events]);
     }
 

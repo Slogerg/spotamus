@@ -24,7 +24,20 @@
                 </div>
             </div>
         </div>
+{{--        @if($items->total() > $items->count())--}}
+{{--            <br>--}}
+{{--            <div class="row justify-content-center">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body">--}}
+{{--                            {{ $items->links() }}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        @endif--}}
     </div>
+
 
     <script type="text/javascript">
         $('#search').on('keyup', function () {
