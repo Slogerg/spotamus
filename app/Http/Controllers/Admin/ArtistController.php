@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Artist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use SpotifyWebAPI;
 
 class ArtistController extends Controller
 {
@@ -128,5 +130,30 @@ class ArtistController extends Controller
     {
         Artist::where('id',$id)->delete();
         return redirect()->route('artist.index');
+    }
+
+    public function artistFromSpotify()
+    {
+        return view('admin.artist.spotify');
+    }
+
+    public function getArtistFromSpotify(Request $request)
+    {
+        $session = new SpotifyWebAPI\Session(
+            Config::get('spotify.login'),
+            Config::get('spotify.secret')
+        );
+
+        $session->requestCredentialsToken();
+        $accessToken = $session->getAccessToken();
+        $api = new SpotifyWebAPI\SpotifyWebAPI();
+        $api->setAccessToken($accessToken);
+
+
+        $results = $api->search($request->name, 'artist',['limit' => 3]);
+//dd($results);
+        $returnHtml = view('admin.artist.spotify-items',['items' => $results])->render();
+        return response()->json(['success' => true,'html' => $returnHtml]);
+
     }
 }

@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/save',[ArtistController::class,'store'])->name('artist.store');
             Route::put('/update/{id}',[ArtistController::class,'update'])->name('artist.update');
             Route::delete('/delete/{id}',[ArtistController::class,'destroy'])->name('artist.delete');
+            Route::get('/artist/spotify/',[ArtistController::class,'artistFromSpotify'])->name('artist.spotify');
+            Route::get('/artist/post/',[ArtistController::class,'getArtistFromSpotify'])->name('artist.spotify.post');
         });
 
         Route::prefix('events')->group(function (){

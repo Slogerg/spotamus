@@ -7,6 +7,7 @@
             @include('admin.sidebar')
             <div class="col py-3">
                 <a class="btn btn-success create_button" href="{{route('artist.create')}}">Create</a>
+                <a class="btn btn-warning create_button" href="{{route('artist.spotify')}}">Create from Spotify</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
