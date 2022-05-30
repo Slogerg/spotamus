@@ -6,35 +6,29 @@ use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VenueController;
+use App\Http\Controllers\Game\GameController;
+use App\Http\Controllers\Game\SpotifyController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 //Admin panel
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function (){
-        Route::prefix('artists')->group(function (){
-            Route::get('/',[ArtistController::class,'index'])->name('artist.index');
-            Route::get('/create',[ArtistController::class,'create'])->name('artist.create');
-            Route::get('/edit/{id}',[ArtistController::class,'edit'])->name('artist.edit');
-            Route::post('/save',[ArtistController::class,'store'])->name('artist.store');
-            Route::put('/update/{id}',[ArtistController::class,'update'])->name('artist.update');
-            Route::delete('/delete/{id}',[ArtistController::class,'destroy'])->name('artist.delete');
-            Route::get('/artist/spotify/',[ArtistController::class,'artistFromSpotify'])->name('artist.spotify');
-            Route::get('/artist/post/',[ArtistController::class,'getArtistFromSpotify'])->name('artist.spotify.post');
-            Route::post('/artist/send/',[ArtistController::class,'setArtistFromSpotify'])->name('artist.spotify.send');
+
+        //admin artists
+        Route::group(['prefix' => 'artists', 'as' => 'artist.'], function (){
+            Route::get('/',[ArtistController::class,'index'])->name('index');
+            Route::get('/create',[ArtistController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[ArtistController::class,'edit'])->name('edit');
+            Route::post('/save',[ArtistController::class,'store'])->name('store');
+            Route::put('/update/{id}',[ArtistController::class,'update'])->name('update');
+            Route::delete('/delete/{id}',[ArtistController::class,'destroy'])->name('delete');
+            Route::get('/artist/spotify/',[ArtistController::class,'artistFromSpotify'])->name('spotify');
+            Route::get('/artist/post/',[ArtistController::class,'getArtistFromSpotify'])->name('spotify.post');
+            Route::post('/artist/send/',[ArtistController::class,'setArtistFromSpotify'])->name('spotify.send');
         });
 
-        Route::prefix('events')->group(function (){
+        //admin events
+        Route::group(['prefix' => 'events', 'as' => 'event.'], function (){
             Route::get('/',[EventController::class,'index'])->name('event.index');
             Route::get('/create',[EventController::class,'create'])->name('event.create');
             Route::get('/edit/{id}',[EventController::class,'edit'])->name('event.edit');
@@ -43,40 +37,45 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/delete/{id}',[EventController::class,'destroy'])->name('event.delete');
         });
 
-        Route::prefix('genres')->group(function (){
-            Route::get('/',[GenreController::class,'index'])->name('genre.index');
-            Route::get('/create',[GenreController::class,'create'])->name('genre.create');
-            Route::get('/edit/{id}',[GenreController::class,'edit'])->name('genre.edit');
-            Route::post('/save',[GenreController::class,'store'])->name('genre.store');
-            Route::put('/update/{id}',[GenreController::class,'update'])->name('genre.update');
-            Route::delete('/delete/{id}',[GenreController::class,'destroy'])->name('genre.delete');
+        //admin genres
+        Route::group(['prefix' => 'genres', 'as'=>'genre.'], function (){
+            Route::get('/',[GenreController::class,'index'])->name('index');
+            Route::get('/create',[GenreController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[GenreController::class,'edit'])->name('edit');
+            Route::post('/save',[GenreController::class,'store'])->name('store');
+            Route::put('/update/{id}',[GenreController::class,'update'])->name('update');
+            Route::delete('/delete/{id}',[GenreController::class,'destroy'])->name('delete');
         });
 
-        Route::prefix('tickets')->group(function (){
-            Route::get('/',[TicketController::class,'index'])->name('ticket.index');
-            Route::get('/create',[TicketController::class,'create'])->name('ticket.create');
-            Route::get('/edit/{id}',[TicketController::class,'edit'])->name('ticket.edit');
-            Route::post('/save',[TicketController::class,'store'])->name('ticket.store');
-            Route::put('/update/{id}',[TicketController::class,'update'])->name('ticket.update');
-            Route::delete('/delete/{id}',[TicketController::class,'destroy'])->name('ticket.delete');
+        //admin tickets
+        Route::group(['prefix' => 'tickets', 'as' => 'ticket.'], function (){
+            Route::get('/',[TicketController::class,'index'])->name('index');
+            Route::get('/create',[TicketController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[TicketController::class,'edit'])->name('.edit');
+            Route::post('/save',[TicketController::class,'store'])->name('store');
+            Route::put('/update/{id}',[TicketController::class,'update'])->name('update');
+            Route::delete('/delete/{id}',[TicketController::class,'destroy'])->name('delete');
         });
 
-        Route::prefix('venues')->group(function (){
-            Route::get('/',[VenueController::class,'index'])->name('venue.index');
-            Route::get('/create',[VenueController::class,'create'])->name('venue.create');
-            Route::get('/edit/{id}',[VenueController::class,'edit'])->name('venue.edit');
-            Route::post('/save',[VenueController::class,'store'])->name('venue.store');
-            Route::put('/update/{id}',[VenueController::class,'update'])->name('venue.update');
-            Route::delete('/delete/{id}',[VenueController::class,'destroy'])->name('venue.delete');
+        //admin venues
+        Route::group(['prefix' => 'venues', 'as' => 'venue.'], function (){
+            Route::get('/',[VenueController::class,'index'])->name('index');
+            Route::get('/create',[VenueController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[VenueController::class,'edit'])->name('edit');
+            Route::post('/save',[VenueController::class,'store'])->name('store');
+            Route::put('/update/{id}',[VenueController::class,'update'])->name('update');
+            Route::delete('/delete/{id}',[VenueController::class,'destroy'])->name('delete');
         });
 
-        Route::prefix('users')->group(function (){
-            Route::get('/',[UserController::class,'index'])->name('user.index');
-            Route::get('/create',[UserController::class,'create'])->name('user.create');
-            Route::get('/edit/{id}',[UserController::class,'edit'])->name('user.edit');
-            Route::post('/save',[UserController::class,'store'])->name('user.store');
-            Route::put('/update/{id}',[UserController::class,'update'])->name('user.update');
-            Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('user.delete');
+
+        //admin users
+        Route::group(['prefix' => 'users', 'as' => 'user.'], function (){
+            Route::get('/',[UserController::class,'index'])->name('index');
+            Route::get('/create',[UserController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[UserController::class,'edit'])->name('edit');
+            Route::post('/save',[UserController::class,'store'])->name('store');
+            Route::put('/update/{id}',[UserController::class,'update'])->name('update');
+            Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('delete');
         });
     });
 });
@@ -84,8 +83,8 @@ Route::middleware(['auth'])->group(function () {
 
 //Spotify game
 Route::prefix('game')->group(function (){
-    Route::get('/spotify',[\App\Http\Controllers\Game\SpotifyController::class,'index'])->name('spotify');
-    Route::get('/play',[\App\Http\Controllers\Game\GameController::class,'index'])->name('game');
+//    Route::get('/spotify',[SpotifyController::class,'index'])->name('spotify');  --unused
+    Route::get('/play',[GameController::class,'index'])->name('game');
     Route::get('/timeout',[\App\Http\Controllers\Game\GameController::class,'index'])->name('timeout');
     Route::post('/guess',[\App\Http\Controllers\Game\GuessController::class,'store'])->name('game.guess');
     Route::get('/home',[\App\Http\Controllers\Game\HomeController::class,'index'])->name('game.home');
@@ -124,6 +123,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
