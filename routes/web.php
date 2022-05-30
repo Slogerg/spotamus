@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/delete/{id}',[ArtistController::class,'destroy'])->name('artist.delete');
             Route::get('/artist/spotify/',[ArtistController::class,'artistFromSpotify'])->name('artist.spotify');
             Route::get('/artist/post/',[ArtistController::class,'getArtistFromSpotify'])->name('artist.spotify.post');
+            Route::post('/artist/send/',[ArtistController::class,'setArtistFromSpotify'])->name('artist.spotify.send');
         });
 
         Route::prefix('events')->group(function (){

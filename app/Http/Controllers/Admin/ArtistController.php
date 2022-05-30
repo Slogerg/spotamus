@@ -143,17 +143,24 @@ class ArtistController extends Controller
             Config::get('spotify.login'),
             Config::get('spotify.secret')
         );
-
         $session->requestCredentialsToken();
         $accessToken = $session->getAccessToken();
         $api = new SpotifyWebAPI\SpotifyWebAPI();
         $api->setAccessToken($accessToken);
-
+//        dd($api->getArtist('https://open.spotify.com/artist/3AA28KZvwAUcZuOKwyblJQ'));
 
         $results = $api->search($request->name, 'artist',['limit' => 3]);
 //dd($results);
         $returnHtml = view('admin.artist.spotify-items',['items' => $results])->render();
         return response()->json(['success' => true,'html' => $returnHtml]);
 
+    }
+
+    public function setArtistFromSpotify(Request $request)
+    {
+        $data = $request->except('_token');
+        Artist::create($data);
+
+        return redirect()->route('artist.index');
     }
 }
