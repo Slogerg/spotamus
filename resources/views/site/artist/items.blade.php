@@ -1,7 +1,9 @@
 @foreach($items as $item)
-    <div class="card mb-4">
+    <div class="card mb-4" >
         @if($item->image)
-            <img class="img-fluid rounded" src="{{asset(str_replace('public/','storage',$item->image))}}" alt="">
+            <img style="width: fit-content; height: 400px; display: block; margin-left: auto; margin-right: auto;"
+                 class="img-fluid rounded"
+                 src="{{asset(str_replace('public/','storage',$item->image))}}" alt="">
         @else
             <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap" />
         @endif

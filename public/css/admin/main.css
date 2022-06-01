@@ -19,3 +19,16 @@
     cursor: pointer;
     outline: inherit;
 }
+.nav-item-admin{
+    width: 270px;
+}
+
+.nav-link-hover{
+    color: lightgray;
+}
+
+.nav-link-hover:hover{
+    background-color: #00008B;
+    color: white;
+    transition: 0.5s;
+}

@@ -1,7 +1,7 @@
 @foreach($items->artists->items as $item)
 <div class="card" style="width: 18rem;">
-@dd($item)
-    <img class="card-img-top" src="{{$item->images[0]->url ?? ''}}" alt="Фото не існує">
+
+    <img class="card-img-top" style="width: 100%;height: 256px" src="{{$item->images[0]->url ?? asset('img/not-found.jpg')}}" alt="Фото не існує">
     <div class="card-body">
         <h5 class="card-title">{{$item->name}}</h5>
         <p class="card-text"></p>

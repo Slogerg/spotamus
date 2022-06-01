@@ -29,12 +29,12 @@ Route::middleware(['auth'])->group(function () {
 
         //admin events
         Route::group(['prefix' => 'events', 'as' => 'event.'], function (){
-            Route::get('/',[EventController::class,'index'])->name('event.index');
-            Route::get('/create',[EventController::class,'create'])->name('event.create');
-            Route::get('/edit/{id}',[EventController::class,'edit'])->name('event.edit');
-            Route::post('/save',[EventController::class,'store'])->name('event.store');
-            Route::put('/update/{id}',[EventController::class,'update'])->name('event.update');
-            Route::delete('/delete/{id}',[EventController::class,'destroy'])->name('event.delete');
+            Route::get('/',[EventController::class,'index'])->name('index');
+            Route::get('/create',[EventController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[EventController::class,'edit'])->name('edit');
+            Route::post('/save',[EventController::class,'store'])->name('store');
+            Route::put('/update/{id}',[EventController::class,'update'])->name('update');
+            Route::delete('/delete/{id}',[EventController::class,'destroy'])->name('delete');
         });
 
         //admin genres
@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['prefix' => 'tickets', 'as' => 'ticket.'], function (){
             Route::get('/',[TicketController::class,'index'])->name('index');
             Route::get('/create',[TicketController::class,'create'])->name('create');
-            Route::get('/edit/{id}',[TicketController::class,'edit'])->name('.edit');
+            Route::get('/edit/{id}',[TicketController::class,'edit'])->name('edit');
             Route::post('/save',[TicketController::class,'store'])->name('store');
             Route::put('/update/{id}',[TicketController::class,'update'])->name('update');
             Route::delete('/delete/{id}',[TicketController::class,'destroy'])->name('delete');
