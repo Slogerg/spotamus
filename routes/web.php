@@ -109,6 +109,8 @@ Route::get('/artists',[\App\Http\Controllers\Site\ArtistController::class,'index
 Route::get('/artist/{slug}',[\App\Http\Controllers\Site\ArtistController::class,'single'])->name('front.artist.show');
 Route::get('/search/artist',[\App\Http\Controllers\Site\ArtistController::class,'search'])->name('front.artist.search');
 
+Route::get('/getSimilar/artists}',[\App\Http\Controllers\Site\ArtistController::class,'getSimilar'])->name('get.similar.artists');
+
 Route::post('/upvote',[\App\Http\Controllers\Site\UpvoteController::class, 'upvote'])->middleware(['auth'])->name('upvote');
 
 Route::get('/', function () {

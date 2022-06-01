@@ -9,6 +9,8 @@
             <div class="col-lg-8">
                 <!-- Title -->
                 <h1 class="mt-4">{{$item->nickname}}</h1>
+                <input type="text" value="{{$item->nickname}}" name="nickname" hidden>
+
 
                 <!-- Upvote -->
                 <div class="upvote-container">
@@ -51,6 +53,11 @@
                     {!! $item->description !!}
                 </p>
                 <hr>
+                <button class="btn btn-success find-similar">Знайти подібних артистів</button>
+                <br><br><br>
+                <div id="items-spotify-artists" style="display: flex; justify-content: space-between">
+                    {{--                    @include('admin.artist.spotify-items',['items' => $items])--}}
+                </div>
 {{--                <div class="card my-4">--}}
 {{--                    <h5 class="card-header">Залиште коментар:</h5>--}}
 {{--                    <div class="card-body">--}}
@@ -109,6 +116,32 @@
                 }
             });
 
+        });
+
+        $(".find-similar").click(function (e){
+            var nickname = $("input[name=nickname]").val();
+            if($("#items-spotify-artists").hasClass("active")){
+                $("#items-spotify-artists").html('');
+                $("#items-spotify-artists").removeClass("active");
+            }
+
+            else {
+                $.ajax({
+                    type: 'GET',
+                    url: "{{route('get.similar.artists')}}",
+                    data: {nickname: nickname},
+                    success: function (data) {
+                        if(data.success){
+                            $("#items-spotify-artists").html(data.html);
+                            $("#items-spotify-artists").addClass("active");
+                        }else{
+                            alert('Артисти не знайдені');
+                        }
+
+                    },
+
+                });
+            }
         });
     </script>
 @endsection
