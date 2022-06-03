@@ -1,77 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <link rel="stylesheet" href="{{asset('css/site/auth.css')}}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <!-- Icon -->
+            <div class="fadeIn first auth-header">
+                <h1 class="auth-header-text">Register</h1>
             </div>
+
+            <!-- Login Form -->
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <input type="text" id="name" class="fadeIn second" name="name" placeholder="Name">
+                <input type="text" id="email" class="fadeIn third" name="email" placeholder="Email">
+                <input type="password" id="password" class="fadeIn third input-password" name="password" placeholder="Password">
+                <div id="password-strength-status"></div>
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+
+            <!-- Remind Passowrd -->
+{{--            <div id="formFooter">--}}
+{{--                <a class="underlineHover" href="#">Forgot Password?</a>--}}
+{{--            </div>--}}
+
         </div>
     </div>
-</div>
+    <script>
+        $(document).ready(function () {
+            $("#password").on('keyup', function(){
+                var number = /([0-9])/;
+                var alphabets = /([a-zA-Z])/;
+                var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+                if ($('#password').val().length < 8) {
+                    $('#password-strength-status').removeClass();
+                    $('#password-strength-status').addClass('weak-password');
+                    $('#password-strength-status').html("Слабкий (Потрібно більше 8 символів.)");
+                } else {
+                    if ($('#password').val().match(number) && $('#password').val().match(alphabets) && $('#password').val().match(special_characters)) {
+                        $('#password-strength-status').removeClass();
+                        $('#password-strength-status').addClass('strong-password');
+                        $('#password-strength-status').html("Сильний");
+                    } else {
+                        $('#password-strength-status').removeClass();
+                        $('#password-strength-status').addClass('medium-password');
+                        $('#password-strength-status').html("Середній");
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
