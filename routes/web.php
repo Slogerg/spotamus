@@ -100,6 +100,7 @@ Route::prefix('game')->group(function (){
 Route::get('/events',[\App\Http\Controllers\Site\EventController::class,'index'])->name('front.events');
 Route::get('/event/{slug}',[\App\Http\Controllers\Site\EventController::class,'single'])->name('front.event.show');
 Route::get('/search/event',[\App\Http\Controllers\Site\EventController::class,'search'])->name('front.event.search');
+Route::get('/',[\App\Http\Controllers\HomeController::class,'index'])->name('home');
 
 Route::get('/genres',[\App\Http\Controllers\Site\GenreController::class,'index'])->name('front.genres');
 Route::get('/genre/{slug}',[\App\Http\Controllers\Site\GenreController::class,'single'])->name('front.genre.show');
@@ -113,18 +114,11 @@ Route::get('/getSimilar/artists}',[\App\Http\Controllers\Site\ArtistController::
 
 Route::post('/upvote',[\App\Http\Controllers\Site\UpvoteController::class, 'upvote'])->middleware(['auth'])->name('upvote');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+
 require __DIR__.'/auth.php';
 
-//Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

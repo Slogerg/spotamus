@@ -22,26 +22,22 @@
         <div class="col-md-8 mb-5">
             <h2>Найближчі події:</h2>
             <hr>
-            <p>Перейдіть за посиланням і подивіться актуальні тури</p>
+            <img style="width: 500px; height: 250px;" src="{{asset('img/concert.jpg')}}" alt="">
+
+            <p></p>
             <a class="btn btn-primary btn-lg" href="{{route('front.events')}}">Перейти до подій</a>
 
         </div>
-        <div class="col-md-4 mb-5">
-            <h2>Зв'язок</h2>
+        <div class="col-md-4 mb-5" >
+            <h2>Вибраний актор</h2>
+            <img style="width: 250px; height: 250px;" src="{{asset(str_replace('public/','storage',$featured_artist->image))}}" alt="">
+
+            <h3 style="margin-top: 10px">{{$featured_artist->nickname}}</h3>
+            <br>
+            <a class="btn btn-primary" href="{{route('front.artist.show',$featured_artist->slug)}}">Переглянути →</a>
+            <br>
             <hr>
-            <address>
-                <strong>Хмельницький</strong>
-                <br>район Думка
-                <br>Зарічанська 10, 29000
-                <br>
-            </address>
-            <address>
-                <abbr title="Phone">Телефон:</abbr>
-                (380) 228-1234
-                <br>
-                <abbr title="Email">Email:</abbr>
-                <a href="mailto:#">antonslogerg@gmail.com</a>
-            </address>
+
         </div>
     </div>
     <!-- /.row -->

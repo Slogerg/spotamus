@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,6 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $featured_artist = Artist::orderByDesc('upvotes')->first();
+
+        $last_event = Event::orderByDesc('created_at')->first();
+        return view('home',['featured_artist' => $featured_artist,'last_event' => $last_event]);
     }
 }
