@@ -13,7 +13,9 @@
     <form style=" padding: 0 500px" action="{{route('game.putPlaylist')}}" method="POST">
         @csrf
 
-        <input placeholder="Введіть ID плейліста" name = "playlist" style="width: 100%" class="form-control" type="text" >
+        <label>Введіть ID плейліста (<a target="_blank" href="{{asset('img/id_test.png')}}">Де знайти</a>)
+            <input name = "playlist" style="width: 100%" class="form-control" type="text" >
+        </label>
         <button style="  background-color: #555555; /* Green */
   border: none;
   color: white;

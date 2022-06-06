@@ -26,10 +26,10 @@ class GameController extends Controller
     private function initial()
     {
         if(!is_null(Auth::user()) && !is_null(Auth::user()->currentPlaylist)){
-            $playlist = Auth::user()->currentPlaylist;
+            $playlist_id = Auth::user()->currentPlaylist;
         }
         else
-            $playlist = "4OSIkmIjmBFz5monq4GqVj";
+            $playlist_id = "4OSIkmIjmBFz5monq4GqVj";
 
         // Attempt to get access token
         if (!Cache::has('accessToken')) {
@@ -60,7 +60,7 @@ class GameController extends Controller
 
             Cache::put(
                 'playlist',
-                $this->spotifyApi->getPlaylistTracks($playlist),
+                $this->spotifyApi->getPlaylistTracks($playlist_id),
                 2
             );
         }
