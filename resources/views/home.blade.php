@@ -4,7 +4,8 @@
 
 <body>
 
-<header class="bg-primary py-5 mb-5">
+<header class="bg-primary py-5 mb-5" style="background: rgb(4,46,148);
+background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, rgba(201,243,1,1) 100%, rgba(0,212,255,1) 100%);">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-lg-12">
@@ -70,11 +71,11 @@
             <div class="card h-100">
                 <img class="card-img-top" src="https://placehold.it/300x200" alt="">
                 <div class="card-body">
-                    <h4 class="card-title">Замовити послуги програміста</h4>
-                    <p class="card-text">По нашому адресу ви знайдете офіс з дуже талановитими програмістами, які допоможуть вам створити і підтримати свій проект.</p>
+                    <h4 class="card-title">Перейдіть до гри "Вгадай мелодію"</h4>
+                    <p class="card-text"></p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Зателефонувати!</a>
+                    <a href="{{route('game')}}" class="btn btn-primary">Перейти</a>
                 </div>
             </div>
         </div>

@@ -21,9 +21,9 @@
         </form>
 
         <!-- Remind Passowrd -->
-        {{--            <div id="formFooter">--}}
-        {{--                <a class="underlineHover" href="#">Forgot Password?</a>--}}
-        {{--            </div>--}}
+            <div id="formFooter">
+                <a class="underlineHover" href="{{route('register')}}">Немає аккаунта? Перейдіть до реєстрації</a>
+            </div>
 
     </div>
 </div>

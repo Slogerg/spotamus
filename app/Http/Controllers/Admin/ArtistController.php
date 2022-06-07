@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use SpotifyWebAPI;
@@ -42,10 +43,16 @@ class ArtistController extends Controller
        //add image uploader
 
         $request->validate([
-            'nickname' => 'unique:artists|required|max:255',
+            'nickname' => 'required|max:255',
         ]);
 
         $input = $request->except('image');
+
+        if(Artist::where('nickname',$input['nickname'])->exists()){
+            $input['nickname'] = $input['nickname'].'-'.Carbon::now();
+        }
+
+
 
         if( $request->hasFile('image')){
 

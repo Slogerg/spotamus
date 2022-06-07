@@ -5,12 +5,6 @@
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0" style="width: 270px" id="menu">
             <li class="nav-item-admin">
-                <a href="#" class="nav-link nav-link-hover align-middle px-0">
-                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-                </a>
-            </li>
-
-            <li class="nav-item-admin">
                 <a href="{{route('artist.index')}}"  class="nav-link nav-link-hover px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Artists</span>
                 </a>

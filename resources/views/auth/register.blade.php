@@ -24,9 +24,9 @@
             </form>
 
             <!-- Remind Passowrd -->
-{{--            <div id="formFooter">--}}
-{{--                <a class="underlineHover" href="#">Forgot Password?</a>--}}
-{{--            </div>--}}
+            <div id="formFooter">
+                <a class="underlineHover" href="{{ route('login') }}">Є аккаунт? Перейдіть до логінізації</a>
+            </div>
 
         </div>
     </div>
