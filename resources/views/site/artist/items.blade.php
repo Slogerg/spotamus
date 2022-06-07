@@ -1,18 +1,13 @@
-{{--@foreach($items as $item)--}}
-{{--    <div class="card mb-4" >--}}
-{{--        --}}
-{{--    </div>--}}
-{{--@endforeach--}}
 @foreach($items->chunk(2) as $chunk)
     <div class="row">
         @foreach($chunk as $item)
-            <div class="card col-md-6">
+            <div class="card col-5" style="margin-bottom: 50px; margin-right: 20px">
                 @if($item->image)
                     <img style="width: fit-content; height: 400px; display: block; margin-left: auto; margin-right: auto;"
                          class="img-fluid rounded"
                          src="{{asset(str_replace('public/','storage',$item->image))}}" alt="">
                 @else
-                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap" />
+                    <img style="width: fit-content; height: 400px; display: block; margin-left: auto; margin-right: auto" class="img-fluid rounded" src="https://via.placeholder.com/750x300" alt="Card image cap" />
                 @endif
                 <div class="card-body">
                     <h6 style="color: green;">{{$item->nickname}} from {{$item->from}}</h6>

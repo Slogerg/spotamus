@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    <div style="background: rgb(201,243,1);
+background: linear-gradient(219deg, rgba(201,243,1,1) 12%, rgba(144,158,41,1) 44%, rgba(7,23,144,1) 85%);">
+
+
     <link rel="stylesheet" type="text/css" href="{{url('/css/site/main.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <div class="container">
-        <div class="row">
+    <div class="container-xxl shadow p-3 mb-5 bg-white rounded">
+        <div class="row" style="margin-left: 250px; align-items: center">
             <!-- Post Content Column -->
             <div class="col-lg-8">
                 <!-- Title -->
@@ -38,17 +42,19 @@
                     <img class="img-fluid rounded" src="{{asset(str_replace('public/','storage',$item->image))}}" alt="">
                 @endif
                 <hr>
-{{--                <p>Квитки на концерт</p>--}}
-{{--                <ul class="list-group">--}}
-{{--                    @foreach($item->tickets as $ticket)--}}
-{{--                        <li class="list-group-item"><a href="{{$ticket->url}}">{{$ticket->title}}</a></li>--}}
-{{--                    @endforeach--}}
-
-{{--                </ul>--}}
-{{--                <div class="card my-4">--}}
-{{--                    <h5 class="card-header">Жанр - {{$item->genre->title}}</h5>--}}
-{{--                </div>--}}
-
+                @if($item->tickets)
+                <ul class="list-group">
+                    <p>Квитки на концерт</p>
+                    @foreach($item->tickets as $ticket)
+                        <li class="list-group-item"><a href="{{$ticket->url}}">{{$ticket->title}}</a></li>
+                    @endforeach
+                </ul>
+                @endif
+                @if($item->genre && $item->genre->title)
+                    <div class="card my-4">
+                        <h5 class="card-header">Жанр - {{$item->genre->title}}</h5>
+                    </div>
+                @endif
                 <p class="lead">
                     {!! $item->description !!}
                 </p>
@@ -56,40 +62,13 @@
                 <button class="btn btn-success find-similar">Знайти подібних артистів</button>
                 <br><br><br>
                 <div id="items-spotify-artists" style="display: flex; justify-content: space-between">
-                    {{--                    @include('admin.artist.spotify-items',['items' => $items])--}}
-                </div>
-{{--                <div class="card my-4">--}}
-{{--                    <h5 class="card-header">Залиште коментар:</h5>--}}
-{{--                    <div class="card-body">--}}
-{{--                        <form method="POST" action="{{route('blog.posts.store')}}">--}}
-{{--                            @csrf--}}
-{{--                            <div class="form-group">--}}
-{{--                                <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id}}">--}}
-{{--                                <input type="hidden" id="blog_post_id" name="blog_post_id" value="{{$item->id}}">--}}
-{{--                                <textarea id="text_comment" name="text_comment" class="form-control" rows="3"></textarea>--}}
-{{--                            </div>--}}
-{{--                            <button type="submit" class="btn btn-primary">Підтвердити</button>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <hr>--}}
-{{--                @foreach($item->comments->reverse() as $comments)--}}
-{{--                    <div class="media mb-4">--}}
-{{--                        <hr>--}}
-{{--                        <div class="media-body">--}}
-{{--                            <h5 class="mt-0">--}}
-{{--                                {{$comments->user->name}}--}}
 
-{{--                            </h5>--}}
-{{--                            {{$comments->text_comment}}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <hr>--}}
-{{--                @endforeach--}}
+                </div>
+
             </div>
         </div>
     </div>
-
+    </div>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

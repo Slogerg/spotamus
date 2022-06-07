@@ -22,9 +22,8 @@ class EventController extends Controller
 
     public function search(Request $request)
     {
-
         $keywords = $request->keywords;
-        $events = Event::query()->where('title','like','%'.$keywords.'%')->get();
+        $events = Event::query()->where('title','like','%'.$keywords.'%')->orderByDesc('created_at')->get();
         $returnHtml = view('site.event.items',['items' => $events])->render();
         return response()->json(['success' => true,'html' => $returnHtml]);
     }

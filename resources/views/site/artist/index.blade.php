@@ -6,8 +6,19 @@
         <h1 class="my-4">
             Артисти
         </h1>
-        <input id="search" type="text" class="form-control" placeholder="Введіть назву артиста">
-        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-9  mx-auto">
+                    <input id="search" type="text" class="form-control" placeholder="Введіть назву артиста">
+                </div>
+                <div class="col-3">
+                    <button style="background-color: #00FF00" class="btn" type="submit">Пошук</button>
+                </div>
+            </div>
+        </div>
+
+
+        <br><br>
             <!-- Blog entries-->
             <div class="items-artists">
                 @include('site.artist.items',['items' => $items])

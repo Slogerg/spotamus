@@ -1,28 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <!-- Blog entries-->
-            <div class="col-md-8">
-                <h1 class="my-4">
-                    Останні концерти
-                </h1>
-                <div class="items-events">
-                    @include('site.event.items',['items' => $items])
+    <div class="container-xxl page-body">
+        <h1 class="my-4">
+            Останні концерти
+        </h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-9  mx-auto">
+                    <input id="search" type="text" class="form-control" placeholder="Введіть назву концерту">
                 </div>
-
-            </div>
-
-            <div class="col-md-4">
-                <!-- Side widget-->
-                <div class="card my-4">
-                    <h5 class="card-header">Пошук подій</h5>
-                    <div class="card-body">
-                        <input id="search" type="text" class="form-control" placeholder="Введіть назву концерту">
-                    </div>
+                <div class="col-3">
+                    <button style="background-color: #00FF00" class="btn" type="submit">Пошук</button>
                 </div>
             </div>
+        </div>
+        <br><br>
+        <div class="items-events">
+            @include('site.event.items',['items' => $items])
         </div>
     </div>
     <script type="text/javascript">

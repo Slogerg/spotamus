@@ -25,7 +25,7 @@ class ArtistController extends Controller
     {
         $keywords = $request->keywords;
 
-        $artists = Artist::where('nickname','like','%'.$keywords.'%')->get();
+        $artists = Artist::where('nickname','like','%'.$keywords.'%')->orderByDesc('created_at')->get();
 
         $returnHtml = view('site.artist.items',['items' => $artists])->render();
         return response()->json(['success' => true,'html' => $returnHtml]);
