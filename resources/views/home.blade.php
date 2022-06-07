@@ -9,7 +9,7 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-lg-12">
-                <h1 class="display-4 text-white mt-5 mb-2">Sportamus</h1>
+                <h1 style="font-size: 72px; font-weight: 900" class="display-4 text-white mt-5 mb-2">Sportamus</h1>
                 <p class="lead mb-5 text-white-50">Слава Україні - Героям Слава</p>
             </div>
         </div>
@@ -26,7 +26,7 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
             <img style="width: 500px; height: 250px;" src="{{asset('img/concert.jpg')}}" alt="">
 
             <p></p>
-            <a class="btn btn-primary btn-lg" href="{{route('front.events')}}">Перейти до подій</a>
+            <a style="background-color: #00FF00" class="btn btn-lg" href="{{route('front.events')}}">Перейти до подій</a>
 
         </div>
         <div class="col-md-4 mb-5" >
@@ -35,7 +35,7 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
 
             <h3 style="margin-top: 10px">{{$featured_artist->nickname}}</h3>
             <br>
-            <a class="btn btn-primary" href="{{route('front.artist.show',$featured_artist->slug)}}">Переглянути →</a>
+            <a  class="btn" style="background-color: #00FF00" href="{{route('front.artist.show',$featured_artist->slug)}}">Переглянути →</a>
             <br>
             <hr>
 
@@ -51,7 +51,7 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
                     <h4 class="card-title">Переглянути базу знань про жанри</h4>
                 </div>
                 <div class="card-footer">
-                    <a href="{{route('front.genres')}}" class="btn btn-primary">Жанри</a>
+                    <a href="{{route('front.genres')}}" class="btn" style="background-color: #00FF00">Жанри</a>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
 {{--                    <p class="card-text">Редактор допоможе у вашому сайті розмістити певний матеріал який буде притягувати клієнтів</p>--}}
                 </div>
                 <div class="card-footer">
-                    <a href="{{route('front.artists')}}" class="btn btn-primary">Артисти</a>
+                    <a href="{{route('front.artists')}}" class="btn" style="background-color: #00FF00">Артисти</a>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
                     <p class="card-text"></p>
                 </div>
                 <div class="card-footer">
-                    <a href="{{route('game')}}" class="btn btn-primary">Перейти</a>
+                    <a href="{{route('game')}}" style="background-color: #00FF00" class="btn">Перейти</a>
                 </div>
             </div>
         </div>
