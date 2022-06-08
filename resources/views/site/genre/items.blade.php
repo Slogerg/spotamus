@@ -6,9 +6,9 @@
                 <p class="card-text">
                     {!! substr($item->description, 0, 100) !!}
                 </p>
-                <a href="{{route('front.genre.show',$item->slug)}}" class="btn btn-success"
-                >Взнати більше</a
-                >
+{{--                <a href="{{route('front.genre.show',$item->slug)}}" class="btn btn-success"--}}
+{{--                >Взнати більше</a--}}
+{{--                >--}}
             </div>
         </div>
     </div>

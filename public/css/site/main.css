@@ -21,8 +21,7 @@
 }
 
 .upvote-container{
-    margin: 0;
     display: flex;
-    font-weight: bold;
-    color: red;
+    justify-content: space-between;
+    margin: 0;
 }

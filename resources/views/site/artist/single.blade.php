@@ -3,8 +3,6 @@
 @section('content')
     <div style="background: rgb(201,243,1);
 background: linear-gradient(219deg, rgba(201,243,1,1) 12%, rgba(144,158,41,1) 44%, rgba(7,23,144,1) 85%);">
-
-
     <link rel="stylesheet" type="text/css" href="{{url('/css/site/main.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="container-xxl shadow p-3 mb-5 bg-white rounded">
@@ -14,19 +12,6 @@ background: linear-gradient(219deg, rgba(201,243,1,1) 12%, rgba(144,158,41,1) 44
                 <!-- Title -->
                 <h1 class="mt-4">{{$item->nickname}}</h1>
                 <input type="text" value="{{$item->nickname}}" name="nickname" hidden>
-
-
-                <!-- Upvote -->
-                <div class="upvote-container">
-                    <p class="upvotes" style=" margin-right: 10px">Upvote</p>
-                    <p class="upvotes" id='number'>{{$item->upvotes}}</p>
-                    <form action="{{route('upvote')}}" method="post">
-                        @csrf
-                        <input type="text" value="{{$item->id}}" name="id" hidden>
-                        <button class="delete-button">
-                            <img class="upvote" src="{{url('svg/upvote.svg')}}" alt=""></button>
-                    </form>
-                </div>
 
                 <!-- Author -->
 {{--                <p class="lead">--}}

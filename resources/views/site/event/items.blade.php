@@ -13,10 +13,21 @@
                     <h6 style="color: green;">{{$item->artist->nickname}} on {{$item->venue->title}}</h6>
                     <h2 class="card-title">{{$item->title}}</h2>
 
-                    <a class="btn" style="height: 55px; line-height: 45px; background-color: #99ff33; font-size: 20px; font-weight: 700" href="{{route('front.event.show',$item->slug)}}">Переглянути</a>
+                    <a class="btn main-btn" href="{{route('front.event.show',$item->slug)}}">Переглянути</a>
                 </div>
-                <div class="card-footer text-muted">
-                    {{$item->created_at}}
+                <div class="card-footer text-muted" style="height: 45px">
+
+                    <div class="upvote-container">
+                        {{$item->created_at}}
+                            <p class="upvotes" id='{{'number-'.$item->id}}' style="margin-left: auto">{{$item->upvotes}}</p>
+                            <form action="{{route('upvote')}}" method="post">
+                                @csrf
+                                <input type="text" value="{{$item->id}}" name="id" hidden>
+                                <button class="delete-button" type="submit">
+                                    <img class="upvote" src="{{url('svg/upvote.svg')}}" alt="">
+                                </button>
+                            </form>
+                    </div>
                 </div>
             </div>
 
@@ -24,3 +35,29 @@
         @endforeach
     </div>
 @endforeach
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(".delete-button").click(function(e){
+        e.preventDefault();
+        var id = $(this).parent().find("input[name=id]").val();
+        var type = 'event';
+        $.ajax({
+            type:'POST',
+            url:"{{ route('upvote') }}",
+            data:{id:id,type:type},
+            statusCode: {
+                401: function() {
+                    window.location = "/login";
+                }},
+            success:function(data){
+                $('#number-'+id).text(data.number);
+            }
+        });
+
+    });
+</script>

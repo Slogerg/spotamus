@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <link rel="stylesheet" type="text/css" href="{{url('/css/site/main.css')}}">
     <div class="container-xxl page-body">
         <h1 class="my-4">
             Артисти
