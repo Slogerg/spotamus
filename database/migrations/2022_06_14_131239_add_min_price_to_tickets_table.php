@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('artist_genres', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('artist_id');
-            $table->foreignId('genre_id');
-            $table->timestamps();
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->integer('price')->after('url');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artist_genres');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->dropColumn('price');
+        });
     }
 };

@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/save',[EventController::class,'store'])->name('store');
             Route::put('/update/{id}',[EventController::class,'update'])->name('update');
             Route::delete('/delete/{id}',[EventController::class,'destroy'])->name('delete');
+
+            Route::post('/create/ticket', [EventController::class, 'createTicket'])->name('create.ticket');
         });
 
         //admin genres

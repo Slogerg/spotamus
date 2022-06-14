@@ -15,4 +15,8 @@ class Genre extends Model
         'description',
     ];
 
+    public function genres()
+    {
+        return $this->belongsToMany(Artist::class,'artist_genres','genre_id','artist_id');
+    }
 }

@@ -32,12 +32,12 @@ class EventController extends Controller
     public function create()
     {
         $venues = Venue::orderBy('title')->get();
-        $tickets = Ticket::orderBy('title')->get();
+//        $tickets = Ticket::orderBy('title')->get();
         $genres = Genre::orderBy('title')->get();
         $artists = Artist::orderBy('nickname')->get();
         return view('admin.event.edit',[
             'venues' => $venues,
-            'tickets' => $tickets,
+//            'tickets' => $tickets,
             'genres' => $genres,
             'artists' => $artists,
         ]);
@@ -51,7 +51,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-
+dd(1);
         $request->validate([
             'title' => 'unique:events|required|max:255',
         ]);
@@ -94,7 +94,7 @@ class EventController extends Controller
     {
         $event = Event::where('id',$id)->first();
         $venues = Venue::orderBy('title')->get();
-        $tickets = Ticket::orderBy('title')->get();
+        $tickets = $event->tickets;
         $genres = Genre::orderBy('title')->get();
         $artists = Artist::orderBy('nickname')->get();
 
@@ -121,8 +121,8 @@ class EventController extends Controller
         ]);
         $event = Event::where('id',$id)->first();
 
-        $input = $request->all();
-
+        $input = $request->except('_token');
+dd($input);
 
 
         if(isset($input['image'])){
@@ -160,5 +160,22 @@ class EventController extends Controller
     {
         Event::where('id',$id)->delete();
         return redirect()->route('event.index');
+    }
+
+    public function createTicket(Request $request)
+    {
+        $data = $request->except('_token');
+        Ticket::create($data);
+        $status = 1;
+        $statusMsg = 'Квиток був збережений успішно';
+        $ticket = Ticket::orderByDesc('id')->first();
+        return response()->json([
+            'status' => $status,
+            'message'   => $statusMsg,
+            'id'        => $ticket->id,
+            'title'     => $ticket->title,
+            'url'       => $ticket->url,
+            'price'     => $ticket->price,
+        ]);
     }
 }

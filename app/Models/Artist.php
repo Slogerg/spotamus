@@ -27,4 +27,8 @@ class Artist extends Model
       'updated_at',
     ];
 
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class,'artist_genres','artist_id','genre_id');
+    }
 }

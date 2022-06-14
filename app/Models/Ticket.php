@@ -12,6 +12,7 @@ class Ticket extends Model
     protected $fillable = [
         'title',
         'url',
+        'price',
     ];
 
     public function events()

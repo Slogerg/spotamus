@@ -21,76 +21,100 @@
                         @method('PUT')
                     @endif
                     <br>
-                    <div class="form-group">
-                        <input type="text"
-                               id="title"
-                               name="title"
-                               class="form-control"
-                               placeholder="Title..."
-                               value="{{$event->title ?? ''}}"
-                                required
-                        >
-                    </div>
+
                     <br><br>
-                    <div class="form-group">
+
                     <div class="row">
-                        <div class="col">
-                            <input type="datetime-local"
-                                   id="start_date"
-                                   name="start_date"
-                                   class="form-control"
-                                   value="{{ isset($event->start_date) ? date('Y-m-d\TH:i', strtotime($event->start_date)) : ''}}"
-                                   required>
-                        </div>
-                        <div class="col">
-                            <input type="datetime-local"
-                                   id="end_time"
-                                   name="end_time"
-                                   class="form-control"
-                                   value="{{isset($event->end_time) ? date('Y-m-d\TH:i', strtotime($event->end_time)) : ''}}">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="title">Назва концерту</label>
+                                <input type="text"
+                                       style="background-color: white; width: 75%"
+                                       id="title"
+                                       name="title"
+                                       class="form-control"
+                                       placeholder="Назва концерту..."
+                                       value="{{$event->title ?? ''}}"
+                                       required
+                                >
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for='status'>Статус</label><select class="form-control" name="status" id='status'
+                                                                          style="background-color: white; width: 75%">
+                                    <option value="Scheduled">Заплановано</option>
+                                    <option value="Cancelled">Відмінено</option>
+                                    <option value="Postponed">Відкладено</option>
+                                    <option value="Rescheduled">Перенесено</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for='status'>Жанр</label>
+                                <select class="form-control" name="genre_id" id='genre_id'
+                                        style="background-color: white; width: 75%">
+                                    @foreach($genres as $genre)
+                                        <option value="{{$genre->id}}">{{$genre->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+
+                                <label for="venue_id">Місце розміщення</label>
+                                <select class="form-control" name="venue_id"
+                                        style="background-color: white; width: 75%">
+                                    @foreach($venues as $venue)
+                                        <option value="{{$venue->id}}">{{$venue->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                         </div>
-                    </div>
-                        <br><br>
-                    </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="start_date">Дата старту</label>
+                                <input type="datetime-local"
+                                       style="background-color: white"
+                                       id="start_date"
+                                       name="start_date"
+                                       class="form-control"
+                                       value="{{ isset($event->start_date) ? date('Y-m-d\TH:i', strtotime($event->start_date)) : ''}}"
+                                       required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="end_time">Кінцева дата</label>
+                                <input type="datetime-local"
+                                       id="end_time"
+                                       style="background-color: white"
+                                       name="end_time"
+                                       class="form-control"
+                                       value="{{isset($event->end_time) ? date('Y-m-d\TH:i', strtotime($event->end_time)) : ''}}">
+                            </div>
 
-                    <div class="form-group">
-                        <input class="form-control" type="file" name="image" value="{{$event->image ?? ''}}">
-                    </div>
-                    <br><br>
-                    <div class="form-group">
-                        <label for='status'>Status</label><select class="form-control" name="status" id='status'>
-                            <option value="Scheduled">Scheduled</option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Postponed">Postponed</option>
-                            <option value="Rescheduled">Rescheduled</option>
-                        </select>
-                    </div>
-                    <br><br>
-                    <div class="form-group">
-                        <label for='status'>Genre</label>
-                        <select class="form-control" name="genre_id" id='genre_id'>
-                            @foreach($genres as $genre)
-                                <option value="{{$genre->id}}">{{$genre->title}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <br><br>
-                    <div class="form-group">
 
-                        <label for="venue_id"> Venue</label>
-                            <select class="form-control" name="venue_id">
-                                @foreach($venues as $venue)
-                                    <option value="{{$venue->id}}">{{$venue->title}}</option>
-                                @endforeach
-                            </select>
+                        </div>
+
+
                     </div>
+                    <br>
+                    <hr>
+                    <br><br>
+                    <div class="form-group">
+                        <label for="image">Картинка</label>
+                        <input class="form-control" style="background-color: white; width: 35%" type="file" id="image"
+                               name="image" value="{{$event->image ?? ''}}">
+                    </div>
+                    <br><br>
+
+
                     <br>
                     <hr>
                     <div class="form-group">
 
                         <label for="artist_id"> Artist</label>
-                        <select class="form-control" name="artist_id">
+                        <select class="form-control" name="artist_id" style="background-color: white">
                             @foreach($artists as $artist)
                                 <option value="{{$artist->id}}">{{$artist->nickname}}</option>
                             @endforeach
@@ -100,21 +124,58 @@
                     <hr>
                     <br>
                     <div class="form-group">
-                        <h3>Tickets</h3>
-                        @foreach($tickets as $ticket)
+                        <div id="all_tickets">
+                            @if(isset($tickets))
+                                @foreach($tickets as $ticket)
+                                    <input name="tickets[]" value="{{$ticket->id}}">
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="row">
+                            <div class="col-11">
+                                <h3>Квитки</h3>
+                            </div>
 
-                            <input
-                                @if(isset($event->id) && \DB::table('event_ticket')->where('ticket_id',$ticket->id)->where('event_id',$event->id)->exists())
-                                    checked
-                                @endif
-                                type="checkbox"
-                                class="form-check-input"
-                                id="tickets[]"
-                                name="tickets[]"
-                                value="{{$ticket->id}}">
-                            <label for="tickets[]">{{$ticket->title}}</label>
-                            <br>
-                        @endforeach
+                            <div class="col-1">
+                                <button class="btn btn-success" id="createTicket">Створити новий квиток</button>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr style="background-color: white">
+                                <th scope="col">#</th>
+                                <th scope="col">Назва</th>
+                                <th scope="col">Посилання</th>
+                                <th scope="col">Ціна</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @if(isset($tickets))
+                            @foreach($tickets as $ticket)
+                                <tr>
+                                    <th>{{$ticket->id}}</th>
+                                    <th>{{$ticket->title}}</th>
+                                    <th>{{$ticket->url}}</th>
+                                    <th>{{$ticket->price}}</th>
+                                </tr>
+
+                                {{--                            <input--}}
+                                {{--                                @if(isset($event->id) && \DB::table('event_ticket')->where('ticket_id',$ticket->id)->where('event_id',$event->id)->exists())--}}
+                                {{--                                    checked--}}
+                                {{--                                @endif--}}
+                                {{--                                style="background-color: white"--}}
+                                {{--                                type="checkbox"--}}
+                                {{--                                class="form-check-input"--}}
+                                {{--                                id="tickets[]"--}}
+                                {{--                                name="tickets[]"--}}
+                                {{--                                value="{{$ticket->id}}">--}}
+                                {{--                            <label for="tickets[]">{{$ticket->title}}</label>--}}
+                                {{--                            <br>--}}
+                            @endforeach
+                            @endif
+                            </tbody>
+                        </table>
                     </div>
                     <br>
                     <textarea id="myeditorinstance" name="description">{!! $event->description ?? '' !!}</textarea>
@@ -125,13 +186,118 @@
             </div>
         </div>
     </div>
-    <script src = '{{url('js/admin/create.js')}}'></script>
+
+<div class="container">
+    <div id="modalDialog" class="modal">
+        <div class="modal-content animate-top">
+            <div class="modal-header">
+                <h5 class="modal-title">Створення нового квитка</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form method="post" id="formCreateTicket">
+                @csrf
+                <div class="modal-body">
+                    <!-- Form submission status -->
+                    <div class="response" style="color: green"></div>
+
+                    <!-- Contact form -->
+                    <div class="form-group-modal">
+                        <label>Назва</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="Введіть назву квитка" required="">
+                    </div>
+                    <div class="form-group-modal">
+                        <label>URL</label>
+                        <input type="text" name="url" id="url" class="form-control" placeholder="Введіть URL" required="">
+                    </div>
+                    <div class="form-group-modal">
+                        <label>Ціна</label>
+                        <input type="number" name="price" id="price"  class="form-control" placeholder="Введіть початкову ціну">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Submit button -->
+                    <button type="submit" class="btn-modal btn-primary-modal">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+    <script src='{{url('js/admin/create.js')}}'></script>
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
             plugins: 'code table lists',
             toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+        });
+    </script>
+    <script>
+        var modal = $('#modalDialog');
+
+        // Get the button that opens the modal
+        var btn = $("#createTicket");
+
+        // Get the  element that closes the modal
+        var span = $(".close");
+
+        $(document).ready(function(){
+            // When the user clicks the button, open the modal
+            btn.on('click', function(e) {
+                e.preventDefault();
+                modal.show();
+            });
+
+            // When the user clicks on  (x), close the modal
+            span.on('click', function() {
+                modal.hide();
+            });
+        });
+
+        // When the user clicks anywhere outside of the modal, close it
+        $('body').bind('click', function(e){
+            if($(e.target).hasClass("modal")){
+                modal.hide();
+            }
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('#formCreateTicket').submit(function(e){
+                e.preventDefault();
+                $('.modal-body').css('opacity', '0.5');
+                $('.btn-modal').prop('disabled', true);
+
+                $form = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: '{{route('event.create.ticket')}}',
+                    data: $form.serialize(),
+                    dataType: 'json',
+                    success: function(response){
+                        if(response.status == 1){
+                            $('#formCreateTicket')[0].reset();
+                            $('.response').html(''+response.message+'');
+                        }else{
+                            $('.response').html(''+response.message+'');
+                        }
+                        $('.modal-body').css('opacity', '');
+                        // $('.btn-modal').prop('disabled', false);
+                        var row = "<tr style='background-color: white'><td>" + response.id + "</td><td>" + response.title + "</td><td>" + response.url + "</td><td>" + response.price + "</td></tr>";
+                        $("table tbody").append(row);
+                        var input = "<input name='tickets[]' value='"+response.id+"'>"
+                        $("#all_tickets").append(input);
+
+                    }
+                });
+            });
         });
     </script>
 @endsection
