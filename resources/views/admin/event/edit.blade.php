@@ -7,9 +7,9 @@
         <div class="row flex-nowrap">
             @include('admin.sidebar')
             <div class="col py-3">
-                <form
+                <form id="mainForm"
                     @if(isset($event->id) && !empty($event->id))
-                        action=" {{route('event.update',$event->id)}}"
+                        action="{{route('event.update',$event->id)}}"
                     @else
                         action="{{route('event.store')}}"
                     @endif
@@ -152,27 +152,14 @@
                             <tbody>
 
                             @if(isset($tickets))
-                            @foreach($tickets as $ticket)
-                                <tr>
-                                    <th>{{$ticket->id}}</th>
-                                    <th>{{$ticket->title}}</th>
-                                    <th>{{$ticket->url}}</th>
-                                    <th>{{$ticket->price}}</th>
-                                </tr>
-
-                                {{--                            <input--}}
-                                {{--                                @if(isset($event->id) && \DB::table('event_ticket')->where('ticket_id',$ticket->id)->where('event_id',$event->id)->exists())--}}
-                                {{--                                    checked--}}
-                                {{--                                @endif--}}
-                                {{--                                style="background-color: white"--}}
-                                {{--                                type="checkbox"--}}
-                                {{--                                class="form-check-input"--}}
-                                {{--                                id="tickets[]"--}}
-                                {{--                                name="tickets[]"--}}
-                                {{--                                value="{{$ticket->id}}">--}}
-                                {{--                            <label for="tickets[]">{{$ticket->title}}</label>--}}
-                                {{--                            <br>--}}
-                            @endforeach
+                                @foreach($tickets as $ticket)
+                                    <tr>
+                                        <th>{{$ticket->id}}</th>
+                                        <th>{{$ticket->title}}</th>
+                                        <th>{{$ticket->url}}</th>
+                                        <th>{{$ticket->price}}</th>
+                                    </tr>
+                                @endforeach
                             @endif
                             </tbody>
                         </table>
@@ -180,51 +167,53 @@
                     <br>
                     <textarea id="myeditorinstance" name="description">{!! $event->description ?? '' !!}</textarea>
                     <br>
-                    <button type="submit" class="btn btn-success">Save</button>
-
+                    <button type="submit" id="formSubmit" class="btn btn-success">Save</button>
                 </form>
             </div>
         </div>
     </div>
 
-<div class="container">
-    <div id="modalDialog" class="modal">
-        <div class="modal-content animate-top">
-            <div class="modal-header">
-                <h5 class="modal-title">Створення нового квитка</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+    <div class="container">
+        <div id="modalDialog" class="modal">
+            <div class="modal-content animate-top">
+                <div class="modal-header">
+                    <h5 class="modal-title">Створення нового квитка</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form method="post" id="formCreateTicket">
+                    @csrf
+                    <div class="modal-body">
+                        <!-- Form submission status -->
+                        <div class="response" style="color: green"></div>
+
+                        <!-- Contact form -->
+                        <div class="form-group-modal">
+                            <label>Назва</label>
+                            <input type="text" name="title" id="title" class="form-control"
+                                   placeholder="Введіть назву квитка" required="">
+                        </div>
+                        <div class="form-group-modal">
+                            <label>URL</label>
+                            <input type="text" name="url" id="url" class="form-control" placeholder="Введіть URL"
+                                   required="">
+                        </div>
+                        <div class="form-group-modal">
+                            <label>Ціна</label>
+                            <input type="number" name="price" id="price" class="form-control"
+                                   placeholder="Введіть початкову ціну">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Submit button -->
+                        <button type="submit" class="btn-modal btn-primary-modal">Submit</button>
+                    </div>
+                </form>
             </div>
-            <form method="post" id="formCreateTicket">
-                @csrf
-                <div class="modal-body">
-                    <!-- Form submission status -->
-                    <div class="response" style="color: green"></div>
-
-                    <!-- Contact form -->
-                    <div class="form-group-modal">
-                        <label>Назва</label>
-                        <input type="text" name="title" id="title" class="form-control" placeholder="Введіть назву квитка" required="">
-                    </div>
-                    <div class="form-group-modal">
-                        <label>URL</label>
-                        <input type="text" name="url" id="url" class="form-control" placeholder="Введіть URL" required="">
-                    </div>
-                    <div class="form-group-modal">
-                        <label>Ціна</label>
-                        <input type="number" name="price" id="price"  class="form-control" placeholder="Введіть початкову ціну">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- Submit button -->
-                    <button type="submit" class="btn-modal btn-primary-modal">Submit</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
 
 
@@ -246,22 +235,21 @@
         // Get the  element that closes the modal
         var span = $(".close");
 
-        $(document).ready(function(){
-            // When the user clicks the button, open the modal
-            btn.on('click', function(e) {
-                e.preventDefault();
-                modal.show();
-            });
 
-            // When the user clicks on  (x), close the modal
-            span.on('click', function() {
-                modal.hide();
-            });
+        // When the user clicks the button, open the modal
+        btn.on('click', function (e) {
+            e.preventDefault();
+            modal.show();
+        });
+
+        // When the user clicks on  (x), close the modal
+        span.on('click', function () {
+            modal.hide();
         });
 
         // When the user clicks anywhere outside of the modal, close it
-        $('body').bind('click', function(e){
-            if($(e.target).hasClass("modal")){
+        $('body').bind('click', function (e) {
+            if ($(e.target).hasClass("modal")) {
                 modal.hide();
             }
         });
@@ -269,35 +257,39 @@
     </script>
 
     <script>
-        $(document).ready(function(){
-            $('#formCreateTicket').submit(function(e){
-                e.preventDefault();
-                $('.modal-body').css('opacity', '0.5');
-                $('.btn-modal').prop('disabled', true);
+        $('#formCreateTicket').submit(function (e) {
+            e.preventDefault();
+            $('.modal-body').css('opacity', '0.5');
+            // $('.btn-modal').prop('disabled', true);
 
-                $form = $(this);
-                $.ajax({
-                    type: "POST",
-                    url: '{{route('event.create.ticket')}}',
-                    data: $form.serialize(),
-                    dataType: 'json',
-                    success: function(response){
-                        if(response.status == 1){
-                            $('#formCreateTicket')[0].reset();
-                            $('.response').html(''+response.message+'');
-                        }else{
-                            $('.response').html(''+response.message+'');
-                        }
-                        $('.modal-body').css('opacity', '');
-                        // $('.btn-modal').prop('disabled', false);
-                        var row = "<tr style='background-color: white'><td>" + response.id + "</td><td>" + response.title + "</td><td>" + response.url + "</td><td>" + response.price + "</td></tr>";
-                        $("table tbody").append(row);
-                        var input = "<input name='tickets[]' value='"+response.id+"'>"
-                        $("#all_tickets").append(input);
-
+            $form = $(this);
+            $.ajax({
+                type: "POST",
+                url: '{{route('event.create.ticket')}}',
+                data: $form.serialize(),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == 1) {
+                        $('#formCreateTicket')[0].reset();
+                        $('.response').html('' + response.message + '');
+                    } else {
+                        $('.response').html('' + response.message + '');
                     }
-                });
+                    $('.modal-body').css('opacity', '');
+                    // $('.btn-modal').prop('disabled', false);
+                    var row = "<tr style='background-color: white'><td>" + response.id + "</td><td>" + response.title + "</td><td>" + response.url + "</td><td>" + response.price + "</td></tr>";
+                    $("table tbody").append(row);
+                    var input = "<input name='tickets[]' value='" + response.id + "'>"
+                    $("#all_tickets").append(input);
+
+                }
             });
+        });
+    </script>
+    <script>
+        $('#formSubmit').submit(function (e) {
+            e.preventDefault();
+            console.log(1);
         });
     </script>
 @endsection

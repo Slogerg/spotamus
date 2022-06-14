@@ -116,13 +116,13 @@ dd(1);
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'unique:events|required|max:255',
-        ]);
+//        $request->validate([
+//            'title' => 'unique:events|required|max:255',
+//        ]);
         $event = Event::where('id',$id)->first();
 
         $input = $request->except('_token');
-dd($input);
+
 
 
         if(isset($input['image'])){
