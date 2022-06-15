@@ -54,7 +54,11 @@
                                 <select class="form-control" name="genre_id" id='genre_id'
                                         style="background-color: white; width: 75%">
                                     @foreach($genres as $genre)
+                                        @if(isset($event->genre_id) && $genre->id == $event->genre_id)
+                                        <option selected value="{{$genre->id}}">{{$genre->title}}</option>
+                                        @else
                                         <option value="{{$genre->id}}">{{$genre->title}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -65,7 +69,11 @@
                                 <select class="form-control" name="venue_id"
                                         style="background-color: white; width: 75%">
                                     @foreach($venues as $venue)
+                                        @if(isset($event->venue_id) && $venue->id == $event->venue_id)
+                                        <option selected value="{{$venue->id}}">{{$venue->title}}</option>
+                                        @else
                                         <option value="{{$venue->id}}">{{$venue->title}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -116,7 +124,11 @@
                         <label for="artist_id"> Artist</label>
                         <select class="form-control" name="artist_id" style="background-color: white">
                             @foreach($artists as $artist)
+                                @if(isset($event->artist_id) && $artist->id == $event->artist_id)
+                                <option selected value="{{$artist->id}}">{{$artist->nickname}}</option>
+                                @else
                                 <option value="{{$artist->id}}">{{$artist->nickname}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -159,7 +171,7 @@
                                         <th>{{$ticket->title}}</th>
                                         <th>{{$ticket->url}}</th>
                                         <th>{{$ticket->price}}$</th>
-                                        <th><button id="deleteTicket" data-id="{{$ticket->id}}" class="btn btn-danger btn-delete-ticket">Delete</button></th>
+                                        <th><button data-id="{{$ticket->id}}" class="btn btn-danger btn-delete-ticket">Delete</button></th>
                                     </tr>
                                 @endforeach
                             @endif
@@ -304,7 +316,8 @@
                     }
                     $('.modal-body').css('opacity', '');
                     // $('.btn-modal').prop('disabled', false);
-                    var row = "<tr style='background-color: white'><td>" + response.id + "</td><td>" + response.title + "</td><td>" + response.url + "</td><td>" + response.price +"$"+ "</td></tr>";
+                    var row = "<tr id="+response.id+" style='background-color: white'><td>" + response.id + "</td><td>" + response.title +
+                        "</td><td>" + response.url + "</td><td>" + response.price +"$"+ "</td>"+"<th><button data-id="+response.id+" class='btn btn-danger btn-delete-ticket'>Delete</button>"+"</th></tr>";
                     $("table tbody").append(row);
                     var input = "<input hidden name='tickets[]' value='" + response.id + "'>"
                     $("#all_tickets").append(input);

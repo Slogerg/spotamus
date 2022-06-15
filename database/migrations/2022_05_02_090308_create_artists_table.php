@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('from')->nullable();
             $table->integer('upvotes')->default(0);
+            $table->foreignId('genre_id')->nullable();
 
             $table->timestamps();
         });

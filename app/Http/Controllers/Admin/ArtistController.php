@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artist;
+use App\Models\Genre;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -29,7 +30,8 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        return view('admin.artist.edit');
+        $genres = Genre::orderBy('title')->get();
+        return view('admin.artist.edit',['genres' => $genres]);
     }
 
     /**
@@ -61,9 +63,9 @@ class ArtistController extends Controller
             $extention = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = "image/".$filename."_".time().".".$extention;
             $path = $request->file('image')->storeAs('public/', $fileNameToStore);
-
+            $input['image'] =$path;
         }
-        $input['image'] =$path;
+
         Artist::create($input);
 
         return redirect()->route('artist.index');
@@ -90,7 +92,9 @@ class ArtistController extends Controller
     public function edit($id)
     {
         $artist = Artist::where('id',$id)->first();
-        return view('admin.artist.edit',['artist' => $artist]);
+        $genres = Genre::orderBy('title')->get();
+
+        return view('admin.artist.edit',['artist' => $artist,'genres' => $genres]);
     }
 
     /**
@@ -103,12 +107,11 @@ class ArtistController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nickname' => 'unique:artists|required|max:255',
+            'nickname' => 'required|max:255',
         ]);
         $artist = Artist::where('id',$id)->first();
 
         $input = $request->all();
-
 
         if(isset($input['image'])){
             $filenameWithExt = $request->file('image')->getClientOriginalName();

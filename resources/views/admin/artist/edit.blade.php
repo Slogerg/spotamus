@@ -24,23 +24,39 @@
                     <div class="form-group">
                     <div class="row">
                         <div class="col">
+                            <label for="nickname">Назва артиста</label>
                             <input type="text"
-                                   id="nickname"
-                                   name="nickname"
-                                   class="form-control"
-                                   placeholder="Name..."
-                                   value="{{$artist->nickname ?? ''}}">
+                             id="nickname"
+                             name="nickname"
+                             class="form-control"
+                             placeholder="Назва..."
+                             value="{{$artist->nickname ?? ''}}">
                         </div>
                         <div class="col">
+                            <label for="from">Місце розсташування</label>
                             <input type="text"
-                                   id="from"
-                                   name="from"
-                                   class="form-control"
-                                   placeholder="Where from..."
-                                   value="{{$artist->from ?? ''}}"
+                             id="from"
+                             name="from"
+                             class="form-control"
+                             placeholder="Звідки..."
+                             value="{{$artist->from ?? ''}}"
                             >
                         </div>
                     </div>
+                        <br>
+                        <div class="form-group">
+                            <label for='status'>Жанр</label>
+                            <select class="form-control" name="genre_id" id='genre_id'
+                                    style="background-color: white; width: 75%">
+                                @foreach($genres as $genre)
+                                    @if(isset($artist->genre_id) && $genre->id == $artist->genre_id)
+                                    <option selected value="{{$genre->id}}">{{$genre->title}}</option>
+                                    @else
+                                    <option value="{{$genre->id}}">{{$genre->title}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         <br><br>
                     </div>
 

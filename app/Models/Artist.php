@@ -22,13 +22,14 @@ class Artist extends Model
       'image',
       'description',
       'from',
+      'genre_id',
       'upvotes',
       'created_at',
       'updated_at',
     ];
 
-    public function genres()
+    public function genre()
     {
-        return $this->belongsToMany(Genre::class,'artist_genres','artist_id','genre_id');
+        return $this->belongsTo(Genre::class);
     }
 }
