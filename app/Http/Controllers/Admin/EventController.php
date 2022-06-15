@@ -9,7 +9,9 @@ use App\Models\Genre;
 use App\Models\Ticket;
 use App\Models\Venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -24,11 +26,7 @@ class EventController extends Controller
         return view('admin.event.index', ['events' => $events]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $venues = Venue::orderBy('title')->get();
@@ -43,19 +41,22 @@ class EventController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'unique:events|required|max:255',
-        ]);
+//        $validator = Validator::make($request->all(),[
+//            'title' => 'unique:events|required|max:255',
+//        ]);
+
+
 
         $input = $request->except('image');
+
+        $duplicate = Event::where('title',$input['title']);
+
+        if($duplicate->exists()){
+            $input['title'] = $duplicate->first()->title.Carbon::now()->format('Y-m-d-H-i-s');
+        }
 
         if ($request->hasFile('image')) {
 

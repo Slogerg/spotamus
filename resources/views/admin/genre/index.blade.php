@@ -26,7 +26,7 @@
                             <td>{{$genre->created_at}}</td>
                             <td>
                                 <div style="display: flex">
-                                    <a href=""><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
+                                    <a href="{{route('front.genre.show',$genre->id)}}"><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
                                     <a href="{{route('genre.edit',$genre->id)}}"><img class="svg_icon"
                                                                                         src="{{url('svg/edit.svg')}}"
                                                                                         alt=""></a>

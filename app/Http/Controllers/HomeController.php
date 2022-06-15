@@ -23,7 +23,8 @@ class HomeController extends Controller
 
 
         return view('home',
-            ['featured_artist' => $featured_artist,
+            [
+                'featured_artist' => $featured_artist,
                 'last_event' => $last_event,
                 'genres'     => $genres
             ]);

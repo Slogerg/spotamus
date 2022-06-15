@@ -29,7 +29,7 @@ class GameController extends Controller
             $playlist_id = Auth::user()->currentPlaylist;
         }
         else
-            $playlist_id = "4OSIkmIjmBFz5monq4GqVj";
+            $playlist_id = "0f4q1pAYjtjpxZS16Tndda";
 
         // Attempt to get access token
         if (!Cache::has('accessToken')) {

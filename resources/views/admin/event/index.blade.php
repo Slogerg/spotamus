@@ -32,7 +32,7 @@
                                 <div style="display: flex">
 
 
-                                    <a href=""><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
+                                    <a target="_blank" href="{{route('front.event.show',$event->slug)}}"><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
                                     <a href="{{route('event.edit',$event->id)}}"><img class="svg_icon"
                                                                                         src="{{url('svg/edit.svg')}}"
                                                                                         alt=""></a>

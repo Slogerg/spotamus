@@ -19,12 +19,6 @@
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Genres</span>
                 </a>
             </li>
-
-            <li class="nav-item-admin">
-                <a href="{{route('ticket.index')}}" class="nav-link nav-link-hover px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Tickets</span>
-                </a>
-            </li>
             <li class="nav-item-admin">
                 <a href="{{route('venue.index')}}" class="nav-link nav-link-hover px-0 align-middle">
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Venues</span>
@@ -38,6 +32,5 @@
 
         </ul>
         <hr>
-
     </div>
 </div>

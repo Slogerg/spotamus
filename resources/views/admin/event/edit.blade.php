@@ -293,9 +293,7 @@
             });
 
         })
-    </script>
 
-    <script>
         $('#formCreateTicket').submit(function (e) {
             e.preventDefault();
             $('.modal-body').css('opacity', '0.5');
