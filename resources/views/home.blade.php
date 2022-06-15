@@ -45,17 +45,17 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
     <!-- /.row -->
 
     <div class="row">
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <img class="card-img-top" src="https://placehold.it/300x200" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Переглянути базу знань про жанри</h4>
-                </div>
-                <div class="card-footer">
-                    <a href="{{route('front.genres')}}" class="btn main-btn">Жанри</a>
-                </div>
-            </div>
-        </div>
+{{--        <div class="col-md-4 mb-5">--}}
+{{--            <div class="card h-100">--}}
+{{--                <img class="card-img-top" src="https://placehold.it/300x200" alt="">--}}
+{{--                <div class="card-body">--}}
+{{--                    <h4 class="card-title">Переглянути базу знань про жанри</h4>--}}
+{{--                </div>--}}
+{{--                <div class="card-footer">--}}
+{{--                    <a href="{{route('front.genres')}}" class="btn main-btn">Жанри</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top" src="https://placehold.it/300x200" alt="">
@@ -81,7 +81,20 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
             </div>
         </div>
     </div>
-
+    <div class="row">
+        @foreach($genres as $genre)
+            <div class="col-3" style="margin-bottom: 15px">
+                <div class="card" style="background-color: black; color: white">
+                    <div class="card-body">
+                        <div class="card-title">
+                            {{$genre->title}}
+                        </div>
+                    </div>
+                </div>
+{{--                <div style="background-color: black">123</div>--}}
+            </div>
+        @endforeach
+    </div>
 </div>
 
 <footer class="py-5 bg-dark">

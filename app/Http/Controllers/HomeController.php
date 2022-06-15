@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use App\Models\Event;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,6 +19,13 @@ class HomeController extends Controller
         $featured_artist = Artist::orderByDesc('upvotes')->first();
 
         $last_event = Event::orderByDesc('created_at')->first();
-        return view('home',['featured_artist' => $featured_artist,'last_event' => $last_event]);
+        $genres = Genre::orderBy('title')->get();
+
+
+        return view('home',
+            ['featured_artist' => $featured_artist,
+                'last_event' => $last_event,
+                'genres'     => $genres
+            ]);
     }
 }
