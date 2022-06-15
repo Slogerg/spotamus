@@ -8,14 +8,13 @@
 background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, rgba(201,243,1,1) 100%, rgba(0,212,255,1) 100%);">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
-            <div class="col-lg-12">
-                <h1 style="font-size: 72px; font-weight: 900" class="display-4 text-white mt-5 mb-2">Sportamus</h1>
-                <p class="lead mb-5 text-white-50">Слава Україні - Героям Слава</p>
+            <div class="col-lg-12" style="text-align: center">
+                <h1 style="font-size: 72px; font-weight: 900" class="display-4 text-white mt-5 mb-2">Слава Україні!</h1>
+                <a class="btn main-btn btn-lg" target="_blank" href="https://u24.gov.ua/" style="background-color: #b7d60a ">HELP TO DEFEND FREEDOM</a>
             </div>
         </div>
     </div>
 </header>
-
 
 <div class="container">
 
@@ -82,15 +81,20 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
         </div>
     </div>
     <div class="row">
+
+        <h1 style="text-align: center; margin-top: 40px; margin-bottom: 40px">Популярні жанри</h1>
         @foreach($genres as $genre)
-            <div class="col-3" style="margin-bottom: 15px">
-                <div class="card" style="background-color: black; color: white">
-                    <div class="card-body">
-                        <div class="card-title">
-                            {{$genre->title}}
+            <div class="col-3" style="margin-bottom: 45px">
+                <a href="{{route('front.genre.show',$genre->slug)}}" style="text-decoration: none;">
+                    <div class="card card-genre" style="background-color: black; color: white; ">
+                        <div class="card-body">
+                            <div class="card-title" style="text-align: center; font-size: 36px;">
+                                {{$genre->title}}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
 {{--                <div style="background-color: black">123</div>--}}
             </div>
         @endforeach

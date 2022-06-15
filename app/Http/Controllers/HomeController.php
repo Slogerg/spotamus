@@ -19,7 +19,7 @@ class HomeController extends Controller
         $featured_artist = Artist::orderByDesc('upvotes')->first();
 
         $last_event = Event::orderByDesc('created_at')->first();
-        $genres = Genre::orderBy('title')->get();
+        $genres = Genre::orderBy('id')->limit(12)->get();
 
 
         return view('home',
