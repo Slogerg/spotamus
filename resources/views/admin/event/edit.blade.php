@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="{{url('/css/admin/main.css')}}">
     <div class="container-fluid" style="padding-top: 0px">
         <div class="row flex-nowrap">
@@ -127,7 +127,7 @@
                         <div id="all_tickets">
                             @if(isset($tickets))
                                 @foreach($tickets as $ticket)
-                                    <input name="tickets[]" value="{{$ticket->id}}">
+                                    <input hidden id="{{$ticket->id}}" name="tickets[]" value="{{$ticket->id}}">
                                 @endforeach
                             @endif
                         </div>
@@ -147,17 +147,19 @@
                                 <th scope="col">Назва</th>
                                 <th scope="col">Посилання</th>
                                 <th scope="col">Ціна</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
 
                             @if(isset($tickets))
                                 @foreach($tickets as $ticket)
-                                    <tr>
+                                    <tr id="{{$ticket->id}}">
                                         <th>{{$ticket->id}}</th>
                                         <th>{{$ticket->title}}</th>
                                         <th>{{$ticket->url}}</th>
-                                        <th>{{$ticket->price}}</th>
+                                        <th>{{$ticket->price}}$</th>
+                                        <th><button id="deleteTicket" data-id="{{$ticket->id}}" class="btn btn-danger btn-delete-ticket">Delete</button></th>
                                     </tr>
                                 @endforeach
                             @endif
@@ -254,6 +256,31 @@
             }
         });
 
+        $('.btn-delete-ticket').on('click', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            $.ajax({
+                type: "DELETE",
+                url: '/admin/events/delete/ticket/'+id,
+                data: {
+                    "id": id,
+                    "_token": token,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if(response.success){
+                        id = response.id;
+                        var row = $('#'+response.id);
+                        row.remove();
+                        var input = $('#'+response.id)
+                        input.remove();
+                    }
+                }
+            });
+
+        })
     </script>
 
     <script>
@@ -277,19 +304,13 @@
                     }
                     $('.modal-body').css('opacity', '');
                     // $('.btn-modal').prop('disabled', false);
-                    var row = "<tr style='background-color: white'><td>" + response.id + "</td><td>" + response.title + "</td><td>" + response.url + "</td><td>" + response.price + "</td></tr>";
+                    var row = "<tr style='background-color: white'><td>" + response.id + "</td><td>" + response.title + "</td><td>" + response.url + "</td><td>" + response.price +"$"+ "</td></tr>";
                     $("table tbody").append(row);
-                    var input = "<input name='tickets[]' value='" + response.id + "'>"
+                    var input = "<input hidden name='tickets[]' value='" + response.id + "'>"
                     $("#all_tickets").append(input);
 
                 }
             });
-        });
-    </script>
-    <script>
-        $('#formSubmit').submit(function (e) {
-            e.preventDefault();
-            console.log(1);
         });
     </script>
 @endsection

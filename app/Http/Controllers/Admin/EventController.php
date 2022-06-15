@@ -21,7 +21,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::orderByDesc('id')->paginate(10);
-        return view('admin.event.index',['events' => $events]);
+        return view('admin.event.index', ['events' => $events]);
     }
 
     /**
@@ -35,7 +35,7 @@ class EventController extends Controller
 //        $tickets = Ticket::orderBy('title')->get();
         $genres = Genre::orderBy('title')->get();
         $artists = Artist::orderBy('nickname')->get();
-        return view('admin.event.edit',[
+        return view('admin.event.edit', [
             'venues' => $venues,
 //            'tickets' => $tickets,
             'genres' => $genres,
@@ -46,39 +46,41 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-dd(1);
         $request->validate([
             'title' => 'unique:events|required|max:255',
         ]);
 
         $input = $request->except('image');
 
-        if( $request->hasFile('image')){
+        if ($request->hasFile('image')) {
 
             $filenameWithExt = $request->file('image')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extention = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = "image/".$filename."_".time().".".$extention;
+            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
             $path = $request->file('image')->storeAs('public/', $fileNameToStore);
-
+            $input['image'] = $path;
         }
-        $input['image'] =$path;
+
+
 
         Event::create($input);
         $id = Event::max('id');
 
-        foreach ($input['tickets'] as $ticket)
-        {
-            DB::table('event_ticket')->insert([
-                'ticket_id' => $ticket,
-                'event_id'  => $id,
-            ]);
+        if(isset($input['tickets']) && !empty($input['tickets'])) {
+            foreach ($input['tickets'] as $ticket) {
+                DB::table('event_ticket')->insert([
+                    'ticket_id' => $ticket,
+                    'event_id' => $id,
+                ]);
         }
+        }
+
 //        $event->tickets()->attach($input['tickets']);
         return redirect()->route('event.index');
     }
@@ -87,18 +89,18 @@ dd(1);
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $event = Event::where('id',$id)->first();
+        $event = Event::where('id', $id)->first();
         $venues = Venue::orderBy('title')->get();
         $tickets = $event->tickets;
         $genres = Genre::orderBy('title')->get();
         $artists = Artist::orderBy('nickname')->get();
 
-        return view('admin.event.edit',[
+        return view('admin.event.edit', [
             'event' => $event,
             'venues' => $venues,
             'tickets' => $tickets,
@@ -110,8 +112,8 @@ dd(1);
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -119,33 +121,33 @@ dd(1);
 //        $request->validate([
 //            'title' => 'unique:events|required|max:255',
 //        ]);
-        $event = Event::where('id',$id)->first();
+        $event = Event::where('id', $id)->first();
 
         $input = $request->except('_token');
 
 
-
-        if(isset($input['image'])){
+        if (isset($input['image'])) {
             $filenameWithExt = $request->file('image')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extention = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = "image/".$filename."_".time().".".$extention;
+            $fileNameToStore = "image/" . $filename . "_" . time() . "." . $extention;
             $path = $request->file('image')->storeAs('public/', $fileNameToStore);
         }
 
         $event->update($input);
 
-        if(isset($input['image']))
+        if (isset($input['image']))
             $event->update(['image' => $path]);
 
+        DB::table('event_ticket')->where('event_id', $id)->delete();
+        if(isset($input['tickets']) && !empty($input['tickets'])) {
 
-        DB::table('event_ticket')->where('event_id',$id)->delete();
-        foreach ($input['tickets'] as $ticket)
-        {
-            DB::table('event_ticket')->insert([
-                'ticket_id' => $ticket,
-                'event_id'  => $id,
-            ]);
+            foreach ($input['tickets'] as $ticket) {
+                DB::table('event_ticket')->insert([
+                    'ticket_id' => $ticket,
+                    'event_id' => $id,
+                ]);
+            }
         }
         return redirect()->route('event.index');
     }
@@ -153,12 +155,12 @@ dd(1);
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Event::where('id',$id)->delete();
+        Event::where('id', $id)->delete();
         return redirect()->route('event.index');
     }
 
@@ -171,11 +173,20 @@ dd(1);
         $ticket = Ticket::orderByDesc('id')->first();
         return response()->json([
             'status' => $status,
-            'message'   => $statusMsg,
-            'id'        => $ticket->id,
-            'title'     => $ticket->title,
-            'url'       => $ticket->url,
-            'price'     => $ticket->price,
+            'message' => $statusMsg,
+            'id' => $ticket->id,
+            'title' => $ticket->title,
+            'url' => $ticket->url,
+            'price' => $ticket->price,
+        ]);
+    }
+
+    public function deleteTicket(Request $request)
+    {
+        Ticket::find($request->id)->delete($request->id);
+        return response()->json([
+            'success' => 1,
+            'id'      => $request->id
         ]);
     }
 }

@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/delete/{id}',[EventController::class,'destroy'])->name('delete');
 
             Route::post('/create/ticket', [EventController::class, 'createTicket'])->name('create.ticket');
+            Route::delete('/delete/ticket/{id}', [EventController::class, 'deleteTicket'])->name('delete.ticket');
         });
 
         //admin genres
