@@ -60,7 +60,9 @@
                         <br><br>
                     </div>
 
-                    <input class="form-control" type="file" name="image" value="{{$artist->image ?? ''}}">
+                    <p><img id="output" style="max-width: 400px; max-height: 200px;" src="@if(isset($artist->image) && !empty($artist->image)){{asset(str_replace('public/','storage',$artist->image))}} @endif" alt=""></p>
+                    <input class="form-control" type="file" name="image" onchange="loadFile(event)" value="{{$artist->image ?? ''}}">
+
                     <br>
                     <textarea id="myeditorinstance" name="description">{!! $artist->description ?? '' !!}</textarea>
                     <br>
@@ -78,5 +80,10 @@
             plugins: 'code table lists',
             toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
         });
+
+        var loadFile = function(event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
     </script>
 @endsection

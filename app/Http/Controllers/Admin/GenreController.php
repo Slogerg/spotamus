@@ -38,9 +38,17 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'unique:genres|required|max:255',
+            'title' => 'required|max:255',
         ]);
+
+
         $input = $request->all();
+
+        $duplicate = Genre::where('title',$input['title']);
+
+        if($duplicate->exists()){
+            $input['title'] = $duplicate->first()->title.Carbon::now()->format('Y-m-d-H-i-s');
+        }
 
         Genre::create($input);
 
@@ -80,7 +88,7 @@ class GenreController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'unique:genres|required|max:255',
+            'title' => 'required|max:255',
         ]);
         $genre = Genre::where('id',$id)->first();
 

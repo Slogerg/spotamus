@@ -17,6 +17,9 @@ class EventController extends Controller
     public function single($slug)
     {
         $event = Event::where('slug',$slug)->first();
+        if(is_null($event)){
+            abort(404);
+        }
         return view('site.event.single',['item' => $event]);
     }
 

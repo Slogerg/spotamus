@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
+use App\Models\Event;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,18 @@ class GenreController extends Controller
     public function single($slug)
     {
         $genre = Genre::where('slug',$slug)->first();
-        return view('site.genre.single',['item' => $genre]);
+        if(is_null($genre)){
+            abort(404);
+        }
+        $featured_artists = Artist::where('genre_id',$genre->id)->limit(3)->get();
+        $featured_events =  Event::where('genre_id',$genre->id)->limit(3)->get();
+        return view('site.genre.single',
+            [
+            'item' => $genre,
+                'featured_artists' => $featured_artists,
+                'featured_events'  => $featured_events,
+            ]
+        );
     }
 
     public function search(Request $request)

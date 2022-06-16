@@ -110,8 +110,10 @@
                     <hr>
                     <br><br>
                     <div class="form-group">
+                        <p><img id="output" style="max-width: 700px; max-height: 400px;" src="@if(isset($event->image) && !empty($event->image)){{asset(str_replace('public/','storage',$event->image))}} @endif" alt=""></p>
+
                         <label for="image">Картинка</label>
-                        <input class="form-control" style="background-color: white; width: 35%" type="file" id="image"
+                        <input class="form-control" style="background-color: white; width: 35%" type="file" id="image" onchange="loadFile(event)"
                                name="image" value="{{$event->image ?? ''}}">
                     </div>
                     <br><br>
@@ -241,6 +243,11 @@
         });
     </script>
     <script>
+        var loadFile = function(event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
         var modal = $('#modalDialog');
 
         // Get the button that opens the modal
