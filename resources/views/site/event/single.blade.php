@@ -48,21 +48,21 @@
 
                         @foreach($item->tickets as $ticket)
                             <div class="row">
-                                <div class="col-8" ><h3 style="line-height: 100px;">{{$ticket->title}}</h3></div>
-                                <div class="col-4"><button class="btn btn-dark">Купити квитки</button></div>
+                                <div class="col-6" ><h3 style="line-height: 100px;">{{$ticket->title}}</h3></div>
+                                <div class="col-2" ><h3 style="line-height: 100px;">{{$ticket->price}}$</h3></div>
+                                <div class="col-4"><a href="{{$ticket->url}}"><button class="btn btn-dark">Купити квитки</button></a></div>
                                 <hr>
                             </div>
                         @endforeach
 
 
                     <div class="card my-4">
-                        <h5 class="card-header">Жанр - {{$item->genre->title}}</h5>
+                        <a class="hover-underline-animation" style="text-decoration: none" href="{{route('front.genre.show',$item->genre->slug)}}"><h5 class="card-header">Жанр - {{$item->genre->title}}</h5></a>
                     </div>
 
                     <p class="lead">
                         {!! $item->description !!}
                     </p>
-                    <hr>
                 </div>
             </div>
         </div>

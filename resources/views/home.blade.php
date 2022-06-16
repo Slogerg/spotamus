@@ -43,6 +43,10 @@ background: linear-gradient(180deg, rgba(4,46,148,1) 0%, rgba(7,116,144,1) 46%, 
     </div>
     <!-- /.row -->
 
+    <div style="position: absolute; width: 100%;left: 0; height: 40px; background-color: gray">
+fsasafsfa
+    </div>
+
     <div class="row">
 {{--        <div class="col-md-4 mb-5">--}}
 {{--            <div class="card h-100">--}}

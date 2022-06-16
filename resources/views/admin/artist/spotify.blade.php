@@ -25,7 +25,7 @@
                     </div>
                     <button id="search_artist" type="submit" class="btn btn-success">Пошук</button>
                 <br><br>
-                <div id="items-spotify-artists" style="display: flex; justify-content: space-between">
+                <div id="items-spotify-artists" style="display: flex; justify-content: space-around">
 {{--                    @include('admin.artist.spotify-items',['items' => $items])--}}
                 </div>
             </div>

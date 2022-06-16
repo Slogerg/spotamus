@@ -37,7 +37,7 @@ background: linear-gradient(219deg, rgba(201,243,1,1) 12%, rgba(144,158,41,1) 44
                 @endif
                 @if($item->genre && $item->genre->title)
                     <div class="card my-4">
-                        <h5 class="card-header">Жанр - {{$item->genre->title}}</h5>
+                        <a class="hover-underline-animation" style="text-decoration: none" href="{{route('front.genre.show',$item->genre->slug)}}"><h5 class="card-header">Жанр - {{$item->genre->title}}</h5></a>
                     </div>
                 @endif
                 <p class="lead">

@@ -2,7 +2,7 @@
 {{--    @dd($item)--}}
     <div class="card" style="width: 18rem;">
 {{--        @dd($item)--}}
-        <img class="card-img-top" src="{{$item->images[0]->url ?? ''}}" alt="Фото не існує">
+        <img style="height: 200px; object-fit: contain;" class="card-img-top" src="{{$item->images[0]->url ?? ''}}" alt="Фото не існує">
         <div class="card-body">
             <h5 class="card-title">{{$item->name}}</h5>
             <p class="card-text"></p>

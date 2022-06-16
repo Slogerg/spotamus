@@ -19,7 +19,7 @@
                 </blockquote>
             </div>
         </div>
-
+        <br><br><br>
         @if(isset($featured_events) && count($featured_events) > 0)
         <h1>Вибрані концерти для вашого жанру</h1>
         <div class="row justify-content-around">

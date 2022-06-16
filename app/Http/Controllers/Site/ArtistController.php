@@ -11,7 +11,7 @@ class ArtistController extends Controller
 {
     public function index()
     {
-        $artists = Artist::orderByDesc('created_at')->paginate(10);
+        $artists = Artist::orderByDesc('created_at')->paginate(8);
         return view('site.artist.index', ['items' => $artists]);
     }
 
@@ -28,7 +28,7 @@ class ArtistController extends Controller
     {
         $keywords = $request->keywords;
 
-        $artists = Artist::where('nickname','like','%'.$keywords.'%')->orderByDesc('created_at')->get();
+        $artists = Artist::where('nickname','like','%'.$keywords.'%')->orderByDesc('created_at')->limit(8);
 
         $returnHtml = view('site.artist.items',['items' => $artists])->render();
         return response()->json(['success' => true,'html' => $returnHtml]);

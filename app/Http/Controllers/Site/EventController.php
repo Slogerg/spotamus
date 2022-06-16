@@ -10,7 +10,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::orderByDesc('created_at')->paginate(10);
+        $events = Event::orderByDesc('created_at')->paginate(8);
         return view('site.event.index', ['items' => $events]);
     }
 
@@ -26,7 +26,7 @@ class EventController extends Controller
     public function search(Request $request)
     {
         $keywords = $request->keywords;
-        $events = Event::query()->where('title','like','%'.$keywords.'%')->orderByDesc('created_at')->get();
+        $events = Event::query()->where('title','like','%'.$keywords.'%')->orderByDesc('created_at')->limit(8);
         $returnHtml = view('site.event.items',['items' => $events])->render();
         return response()->json(['success' => true,'html' => $returnHtml]);
     }

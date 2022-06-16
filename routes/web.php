@@ -97,6 +97,10 @@ Route::prefix('game')->group(function (){
 
     Route::post('/putPlaylist',[\App\Http\Controllers\Game\PlaylistController::class,'putPlaylist'])->name('game.putPlaylist');
     Route::get('/playlist',[\App\Http\Controllers\Game\PlaylistController::class,'index'])->name('game.playlist');
+    Route::get('/select-playlist',[\App\Http\Controllers\Game\PlaylistController::class, 'selectPlaylist'])->name('game.select.playlist');
+
+    Route::post('/putPlaylistFromImages/{id}',[\App\Http\Controllers\Game\PlaylistController::class, 'putPlaylistFromImages'])->name('game.putPlaylistFromImages');
+
 });
 
 //Front View of Site
