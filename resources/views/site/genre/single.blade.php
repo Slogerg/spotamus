@@ -20,13 +20,13 @@
             </div>
         </div>
 
-        @if(!$featured_events->empty())
+        @if(isset($featured_events) && count($featured_events) > 0)
         <h1>Вибрані концерти для вашого жанру</h1>
-        <div class="row">
+        <div class="row justify-content-around">
             @foreach($featured_events as $event)
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card" >
-                        <img class="card-img-top" style=" height: 180px" src="{{asset(str_replace('public/','storage',$event->image))}}" alt="Card image cap">
+                        <img style="width: fit-content; max-width: 300px; height: 200px; display: block; margin-left: auto; margin-right: auto" class="card-img-top" style=" height: 180px" src="{{asset(str_replace('public/','storage',$event->image))}}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{$event->title}}</h5>
                             <p class="card-text"><small class="text-muted">Дата проведення: {{$event->start_date}}</small></p>
@@ -40,15 +40,15 @@
             <h1>Вибрані концерти для вашого жанру не знайдені..</h1>
         @endif
 
-        <br><br>
-        @if(!$featured_events->empty())
-        <h1>Артисти, базовані на жанру</h1>
-        <div class="row">
+        <br><br><br><br>
+        @if(isset($featured_artists) && count($featured_events) > 0)
+        <h1>Артисти, базовані по жанру</h1>
+        <div class="row justify-content-around">
 
             @foreach($featured_artists as $artist)
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card" >
-                        <img class="card-img-top" style=" height: 180px" src="{{asset(str_replace('public/','storage',$artist->image))}}" alt="Card image cap">
+                        <img style="width: fit-content; max-width: 300px; height: 200px; display: block; margin-left: auto; margin-right: auto" class="card-img-top" style=" height: 180px" src="{{asset(str_replace('public/','storage',$artist->image))}}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{$artist->nickname}}</h5>
 {{--                            <p class="card-text"><small class="text-muted">Дата проведення: {{$artist->start_date}}</small></p>--}}
