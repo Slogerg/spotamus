@@ -6,27 +6,27 @@
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0" style="width: 270px" id="menu">
             <li class="nav-item-admin">
                 <a href="{{route('artist.index')}}"  class="nav-link nav-link-hover px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Artists</span>
+                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Артисти</span>
                 </a>
             </li>
             <li class="nav-item-admin">
                 <a href="{{route('event.index')}}" class="nav-link nav-link-hover px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Events</span>
+                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Концерти</span>
                 </a>
             </li>
             <li class="nav-item-admin">
                 <a href="{{route('genre.index')}}" class="nav-link nav-link-hover px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Genres</span>
+                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Жанри</span>
                 </a>
             </li>
             <li class="nav-item-admin">
                 <a href="{{route('venue.index')}}" class="nav-link nav-link-hover px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Venues</span>
+                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Розташування</span>
                 </a>
             </li>
             <li class="nav-item-admin">
                 <a href="{{route('user.index')}}" class="nav-link nav-link-hover px-0 align-middle">
-                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
+                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Користувачі</span>
                 </a>
             </li>
 

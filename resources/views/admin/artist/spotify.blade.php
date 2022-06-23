@@ -13,10 +13,11 @@
                         <div class="row">
                             <div class="col">
                                 <input type="text"
+                                       style="background-color: white"
                                        id="name"
                                        name="name"
                                        class="form-control"
-                                       placeholder="Enter name..."
+                                       placeholder="Введіть ім'я артиста..."
                                 >
                             </div>
 
