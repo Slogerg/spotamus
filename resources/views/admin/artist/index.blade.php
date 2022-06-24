@@ -31,7 +31,7 @@
                                 <div style="display: flex">
 
 
-                                    <a href="{{route('front.artist.show',$artist->id)}}"><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
+                                    <a href="{{route('front.artist.show',$artist->slug)}}"><img class="svg_icon" src="{{url('svg/view.svg')}}" alt=""></a>
                                     <a href="{{route('artist.edit',$artist->id)}}"><img class="svg_icon"
                                                                                         src="{{url('svg/edit.svg')}}"
                                                                                         alt=""></a>
