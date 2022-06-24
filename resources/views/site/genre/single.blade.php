@@ -41,7 +41,7 @@
         @endif
 
         <br><br><br><br>
-        @if(isset($featured_artists) && count($featured_events) > 0)
+        @if(isset($featured_artists) && count($featured_artists) > 0)
         <h1>Артисти, базовані по жанру</h1>
         <div class="row justify-content-around">
 

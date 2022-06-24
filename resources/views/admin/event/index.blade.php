@@ -23,11 +23,11 @@
                     @foreach($events as $event)
                         <tr>
                             <th scope="row">{{$event->id}}</th>
-                            <td>{{$event->title}}</td>
-                            <td>{{$event->venue->title}}</td>
-                            <td>{{$event->status}}</td>
-                            <td>{{$event->start_date}}</td>
-                            <td>{{$event->upvotes}}</td>
+                            <td>{{$event->title ?? ''}}</td>
+                            <td>{{$event->venue->title ?? ''}}</td>
+                            <td>{{$event->status ?? ''}}</td>
+                            <td>{{$event->start_date ?? ''}}</td>
+                            <td>{{$event->upvotes ?? ''}}</td>
                             <td>
                                 <div style="display: flex">
 

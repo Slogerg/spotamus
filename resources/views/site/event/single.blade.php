@@ -33,7 +33,7 @@
                     <!-- Author -->
                     <p class="lead">
                         Представлений артист:
-                        {{$item->artist->nickname}}
+                        {{$artist->nickname ?? ''}}
                     </p>
                     <hr>
                     <!-- Date/Time -->

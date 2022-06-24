@@ -10,7 +10,7 @@
                     <img style="width: fit-content; height: 400px; display: block; margin-left: auto; margin-right: auto" class="img-fluid rounded" src="https://via.placeholder.com/750x300" alt="Card image cap" />
                 @endif
                 <div class="card-body">
-                    <h6 style="color: green;">{{$item->artist->nickname}} on {{$item->venue->title}}</h6>
+                    <h6 style="color: green;">{{$item->artist->nickname ?? 'Артист'}} на {{$item->venue->title}}</h6>
                     <h2 class="card-title">{{$item->title}}</h2>
 
                     <a class="btn main-btn" href="{{route('front.event.show',$item->slug)}}">Переглянути</a>

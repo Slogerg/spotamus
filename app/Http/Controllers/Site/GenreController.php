@@ -22,8 +22,9 @@ class GenreController extends Controller
         if(is_null($genre)){
             abort(404);
         }
-        $featured_artists = Artist::where('genre_id',$genre->id)->limit(3)->get();
-        $featured_events =  Event::where('genre_id',$genre->id)->limit(3)->get();
+        $featured_artists = Artist::where('genre_id',$genre->id)->orderByDesc('created_at')->limit(3)->get();
+        $featured_events =  Event::where('genre_id',$genre->id)->orderByDesc('created_at')->limit(3)->get();
+
         return view('site.genre.single',
             [
             'item' => $genre,
